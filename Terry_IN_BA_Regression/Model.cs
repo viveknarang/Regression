@@ -51,6 +51,7 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> standardizedResiduals;
         public Matrix<double> studentizedResiduals;
         public Matrix<double> PRESSResiduals;
+        public Matrix<double> RStudentResiduals;
         public double SDy;
         public double dfe;
         public double tStar;
@@ -67,6 +68,7 @@ namespace Terry_IN_BA_Regression
         public Boolean isStandardizedResidualsEnabledInAdvancedOtions;
         public Boolean isStudentizedResidualsEnabledInAdvancedOptions;
         public Boolean isPRESSResidualsEnabledInAdvancedOptions;
+        public Boolean isRStudentEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
     }

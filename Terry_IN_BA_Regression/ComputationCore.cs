@@ -64,6 +64,7 @@ namespace Terry_IN_BA_Regression
             computeStandardizedResiduals();
             computeStudentizedResiduals();
             computePRESSResiduals();
+            computeRStudentResiduals();
         }
 
         private void init()
@@ -408,6 +409,7 @@ namespace Terry_IN_BA_Regression
             output.standardizedResiduals = DenseMatrix.OfArray(p);
             output.studentizedResiduals = DenseMatrix.OfArray(p);
             output.PRESSResiduals = DenseMatrix.OfArray(p);
+            output.RStudentResiduals = DenseMatrix.OfArray(p);
 
             p = new double[1, output.xVariables.Count];
 
@@ -667,6 +669,16 @@ namespace Terry_IN_BA_Regression
             for (int i = 0; i < output.PRESSResiduals.RowCount; i++)
             {
                 output.PRESSResiduals[i, 0] = output.residuals[i, 0] / (1 - H[i, i]);
+            }
+        }
+
+        public void computeRStudentResiduals()
+        {
+            Matrix<double> H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
+            for (int i = 0; i < output.RStudentResiduals.RowCount; i++)
+            {
+                double sSquare = ((((output.n - output.k - 1) * output.MSE) - ((output.residuals[i, 0] * output.residuals[i, 0])/(1 - H[i, i])))/(output.n - output.k));
+                output.RStudentResiduals[i, 0] = (output.residuals[i, 0] / (Math.Sqrt(sSquare * (1 - H[i, i])))); 
             }
         }
 

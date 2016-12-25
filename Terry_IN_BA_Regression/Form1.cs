@@ -170,7 +170,7 @@ namespace Terry_IN_BA_Regression
         {
         }
 
-        public void onOkClick()
+        private void setInputStates()
         {
             output.noIntercept = checkBox2.Checked;
             output.isStandardizedCoefficientsEnabled = checkBox4.Checked;
@@ -181,9 +181,15 @@ namespace Terry_IN_BA_Regression
             output.isStandardizedResidualsEnabledInAdvancedOtions = checkBox10.Checked;
             output.isStudentizedResidualsEnabledInAdvancedOptions = checkBox11.Checked;
             output.isPRESSResidualsEnabledInAdvancedOptions = checkBox12.Checked;
+            output.isRStudentEnabledInAdvancedOptions = checkBox13.Checked;
             output.isLabelsCheckedInBasic = checkBox1.Checked;
             output.noIntercept = checkBox2.Checked;
             output.confidenceLevel = textBox3.Text;
+        }
+
+        public void onOkClick()
+        {
+            setInputStates();
 
             Validator validator = new Validator(input,output);
             if (validator.validate())

@@ -226,7 +226,7 @@ namespace Terry_IN_BA_Regression
             int advancedTableReference = 18 + model.xVariables.Count + 2;
             int advancedTableIndex = 1;
 
-            if (model.isConfidenceLimitsEnabledInAdvancedOptions || model.isOriginalEnabledInAdvancedOptions || model.isPredictedEnabledInAdvancedOptions) {
+            if (model.isConfidenceLimitsEnabledInAdvancedOptions || model.isOriginalEnabledInAdvancedOptions || model.isPredictedEnabledInAdvancedOptions || model.isResidualsEnabledInAdvancedOptions || model.isStandardizedResidualsEnabledInAdvancedOtions || model.isStudentizedResidualsEnabledInAdvancedOptions || model.isPRESSResidualsEnabledInAdvancedOptions || model.isRStudentEnabledInAdvancedOptions) {
 
                 ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + advancedTableReference, "A" + advancedTableReference).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
                 ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 1), "A" + (advancedTableReference + 1)).Value2 = "Obs #";
@@ -367,6 +367,20 @@ namespace Terry_IN_BA_Regression
                     ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1)).Value2 = "PRESS Residuals";
                     ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
                     ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 2 + i), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 2 + i)).Value2 = model.PRESSResiduals[i, 0];
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                }
+
+            }
+
+            if (model.isRStudentEnabledInAdvancedOptions)
+            {
+                advancedTableIndex++;
+                for (int i = 0; i < model.RStudentResiduals.RowCount; i++)
+                {
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + advancedTableReference, Util.IntToLetters(advancedTableIndex) + advancedTableReference).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1)).Value2 = "R-Student";
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 2 + i), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 2 + i)).Value2 = model.RStudentResiduals[i, 0];
                     ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
                 }
 
