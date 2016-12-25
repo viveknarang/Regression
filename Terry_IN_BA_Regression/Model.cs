@@ -47,6 +47,7 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> ULMean;
         public Matrix<double> LLPred;
         public Matrix<double> ULPred;
+        public Matrix<double> residuals;
         public double SDy;
         public double dfe;
         public double tStar;
@@ -59,6 +60,7 @@ namespace Terry_IN_BA_Regression
         public Boolean isOriginalEnabledInAdvancedOptions;
         public Boolean isPredictedEnabledInAdvancedOptions;
         public Boolean isConfidenceLimitsEnabledInAdvancedOptions;
+        public Boolean isResidualsEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
     }

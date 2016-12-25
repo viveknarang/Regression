@@ -12,6 +12,5 @@ namespace Terry_IN_BA_Regression
         public int totalItems;
         public string[,] array;
         public string cellnames;
-
     }
 }

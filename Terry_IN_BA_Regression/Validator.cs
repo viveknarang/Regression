@@ -19,6 +19,12 @@ namespace Terry_IN_BA_Regression
 
         public bool validate()
         {
+            if (output.arrayX == null || output.arrayY == null)
+            {
+                Util.showErrorMessage("No data selected !", "Error !");
+                return true;
+            }
+
             if (output.yC > 1)
             {
                 Util.showErrorMessage("Dependent variable has to be a single column with one or more rows !", "Error !");

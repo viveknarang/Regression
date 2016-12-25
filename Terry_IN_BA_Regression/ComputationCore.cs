@@ -59,6 +59,8 @@ namespace Terry_IN_BA_Regression
             computeLLAndUL();
             computeVIF();
             computeLLMeanAndULMean();
+            computeLLPredictedAndULPredicted();
+            computeResiduals();
         }
 
         private void init()
@@ -399,6 +401,7 @@ namespace Terry_IN_BA_Regression
             output.ULMean = DenseMatrix.OfArray(p);
             output.LLPred = DenseMatrix.OfArray(p);
             output.ULPred = DenseMatrix.OfArray(p);
+            output.residuals = DenseMatrix.OfArray(p);
 
             p = new double[1, output.xVariables.Count];
 
@@ -610,6 +613,28 @@ namespace Terry_IN_BA_Regression
 
                 output.LLMean[i, 0] = output.yCap[i, 0] - output.tStar * Math.Sqrt(output.MSE * (m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
                 output.ULMean[i, 0] = output.yCap[i, 0] + output.tStar * Math.Sqrt(output.MSE * (m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
+            }
+        }
+
+        private void computeLLPredictedAndULPredicted()
+        {
+            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
+            {
+                Matrix<double> m1 = output.arrayXConverted.Row(i).ToRowMatrix();
+                Matrix<double> m2 = output.arrayXConverted.Transpose();
+                Matrix<double> m3 = output.arrayXConverted;
+                Matrix<double> m4 = output.arrayXConverted.Row(i).ToRowMatrix().Transpose();
+
+                output.LLPred[i, 0] = output.yCap[i, 0] - output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
+                output.ULPred[i, 0] = output.yCap[i, 0] + output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
+            }
+        }
+
+        private void computeResiduals()
+        {
+            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
+            {
+                output.residuals[i, 0] = output.arrayYConverted[i, 0] - output.yCap[i, 0];
             }
         }
 
