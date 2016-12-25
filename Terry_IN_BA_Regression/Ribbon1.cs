@@ -19,7 +19,6 @@ namespace Terry_IN_BA_Regression
             {
                 ThisAddIn.form.Visible = true;
                 ThisAddIn.form.TopMost = true;
-                ThisAddIn.form.clearCache();
             }
             else
             {
@@ -27,7 +26,6 @@ namespace Terry_IN_BA_Regression
                 ThisAddIn.form = form;
                 ThisAddIn.form.Visible = true;
                 ThisAddIn.form.TopMost = true;
-                ThisAddIn.form.clearCache();
             }
         }
     }
