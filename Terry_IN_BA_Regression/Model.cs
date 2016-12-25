@@ -48,6 +48,9 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> LLPred;
         public Matrix<double> ULPred;
         public Matrix<double> residuals;
+        public Matrix<double> standardizedResiduals;
+        public Matrix<double> studentizedResiduals;
+        public Matrix<double> PRESSResiduals;
         public double SDy;
         public double dfe;
         public double tStar;
@@ -61,6 +64,9 @@ namespace Terry_IN_BA_Regression
         public Boolean isPredictedEnabledInAdvancedOptions;
         public Boolean isConfidenceLimitsEnabledInAdvancedOptions;
         public Boolean isResidualsEnabledInAdvancedOptions;
+        public Boolean isStandardizedResidualsEnabledInAdvancedOtions;
+        public Boolean isStudentizedResidualsEnabledInAdvancedOptions;
+        public Boolean isPRESSResidualsEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
     }

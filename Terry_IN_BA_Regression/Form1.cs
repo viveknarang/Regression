@@ -178,6 +178,9 @@ namespace Terry_IN_BA_Regression
             output.isPredictedEnabledInAdvancedOptions = checkBox7.Checked;
             output.isConfidenceLimitsEnabledInAdvancedOptions = checkBox8.Checked;
             output.isResidualsEnabledInAdvancedOptions = checkBox9.Checked;
+            output.isStandardizedResidualsEnabledInAdvancedOtions = checkBox10.Checked;
+            output.isStudentizedResidualsEnabledInAdvancedOptions = checkBox11.Checked;
+            output.isPRESSResidualsEnabledInAdvancedOptions = checkBox12.Checked;
             output.isLabelsCheckedInBasic = checkBox1.Checked;
             output.noIntercept = checkBox2.Checked;
             output.confidenceLevel = textBox3.Text;

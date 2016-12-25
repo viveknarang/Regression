@@ -61,6 +61,9 @@ namespace Terry_IN_BA_Regression
             computeLLMeanAndULMean();
             computeLLPredictedAndULPredicted();
             computeResiduals();
+            computeStandardizedResiduals();
+            computeStudentizedResiduals();
+            computePRESSResiduals();
         }
 
         private void init()
@@ -402,6 +405,9 @@ namespace Terry_IN_BA_Regression
             output.LLPred = DenseMatrix.OfArray(p);
             output.ULPred = DenseMatrix.OfArray(p);
             output.residuals = DenseMatrix.OfArray(p);
+            output.standardizedResiduals = DenseMatrix.OfArray(p);
+            output.studentizedResiduals = DenseMatrix.OfArray(p);
+            output.PRESSResiduals = DenseMatrix.OfArray(p);
 
             p = new double[1, output.xVariables.Count];
 
@@ -635,6 +641,32 @@ namespace Terry_IN_BA_Regression
             for (int i = 0; i < output.arrayXConverted.RowCount; i++)
             {
                 output.residuals[i, 0] = output.arrayYConverted[i, 0] - output.yCap[i, 0];
+            }
+        }
+
+        private void computeStandardizedResiduals()
+        {
+            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
+            {
+                output.standardizedResiduals[i, 0] = (output.arrayYConverted[i, 0] - output.yCap[i, 0])/ (Math.Sqrt(output.MSE));
+            }
+        }
+
+        public void computeStudentizedResiduals()
+        {
+            Matrix<double> H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
+            for (int i = 0; i < output.studentizedResiduals.RowCount; i++)
+            {
+                output.studentizedResiduals[i, 0] = output.residuals[i, 0] / (Math.Sqrt(output.MSE * (1 - H[i, i]))); 
+            }
+        }
+
+        public void computePRESSResiduals()
+        {
+            Matrix<double> H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
+            for (int i = 0; i < output.PRESSResiduals.RowCount; i++)
+            {
+                output.PRESSResiduals[i, 0] = output.residuals[i, 0] / (1 - H[i, i]);
             }
         }
 
