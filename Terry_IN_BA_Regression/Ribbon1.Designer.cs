@@ -51,7 +51,7 @@
             // group1
             // 
             this.group1.Items.Add(this.button1);
-            this.group1.Label = "Menu Commands";
+            this.group1.Label = "Kepler";
             this.group1.Name = "group1";
             // 
             // button1
