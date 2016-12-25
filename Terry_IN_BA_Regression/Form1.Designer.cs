@@ -86,6 +86,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -97,7 +98,7 @@
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.label13 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -110,6 +111,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl2.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -707,6 +709,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.pictureBox2);
             this.tabPage3.Controls.Add(this.label13);
             this.tabPage3.Controls.Add(this.pictureBox1);
             this.tabPage3.Controls.Add(this.label11);
@@ -724,10 +727,19 @@
             this.tabPage3.Text = "About";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(1, 511);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(85, 20);
+            this.label13.TabIndex = 10;
+            this.label13.Text = "Version 1.0.1";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(107, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(102, 0);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(394, 257);
             this.pictureBox1.TabIndex = 9;
@@ -736,7 +748,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(496, 512);
+            this.label11.Location = new System.Drawing.Point(1, 490);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(103, 20);
             this.label11.TabIndex = 8;
@@ -745,7 +757,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(251, 398);
+            this.label10.Location = new System.Drawing.Point(251, 378);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(118, 20);
             this.label10.TabIndex = 7;
@@ -754,7 +766,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(292, 378);
+            this.label9.Location = new System.Drawing.Point(292, 358);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(35, 20);
             this.label9.TabIndex = 6;
@@ -764,7 +776,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(249, 358);
+            this.label8.Location = new System.Drawing.Point(251, 336);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(126, 20);
             this.label8.TabIndex = 5;
@@ -773,7 +785,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(165, 325);
+            this.label7.Location = new System.Drawing.Point(161, 316);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(292, 20);
             this.label7.TabIndex = 4;
@@ -829,14 +841,14 @@
             this.tabPage6.Text = "Logistic";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // label13
+            // pictureBox2
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1, 511);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(88, 20);
-            this.label13.TabIndex = 10;
-            this.label13.Text = "Version 1.0.0";
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(410, 380);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(189, 152);
+            this.pictureBox2.TabIndex = 11;
+            this.pictureBox2.TabStop = false;
             // 
             // Form1
             // 
@@ -871,6 +883,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.tabControl2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -946,5 +959,6 @@
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
