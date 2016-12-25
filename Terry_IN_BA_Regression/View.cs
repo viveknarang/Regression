@@ -31,7 +31,7 @@ namespace Terry_IN_BA_Regression
             ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("B2", "B2").Value2 = model.yVariable;
 
             ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A3", "B3").Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
-            ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A1", "I1").Cells.EntireColumn.ColumnWidth = 20;
+            ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A1", "Z1").Cells.EntireColumn.ColumnWidth = 17;
 
             ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A4", "A4").Value2 = "Regression Statistics";
             ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A4", "B4").Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
@@ -75,7 +75,7 @@ namespace Terry_IN_BA_Regression
 
             if (model.isStandardizedCoefficientsEnabled)
             {
-                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("I18", "I18").Value2 = "Standardized Coefficients";
+                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("I18", "I18").Value2 = "Standardized Coeff.";
                 ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A18", "I18").Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
             }
             else
@@ -226,16 +226,19 @@ namespace Terry_IN_BA_Regression
             int advancedTableReference = 18 + model.xVariables.Count + 2;
             int advancedTableIndex = 1;
 
-            ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + advancedTableReference, "A" + advancedTableReference).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
-            ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 1), "A" + (advancedTableReference + 1)).Value2 = "Obs #";
-            ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 1), "A" + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+            if (model.isConfidenceLimitsEnabledInAdvancedOptions || model.isOriginalEnabledInAdvancedOptions || model.isPredictedEnabledInAdvancedOptions) {
 
-            for (int i = 0; i < model.arrayYConverted.RowCount; i++)
-            {
-                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 2 + i), "A" + (advancedTableReference + 2 + i)).Value2 = (i + 1);
+                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + advancedTableReference, "A" + advancedTableReference).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 1), "A" + (advancedTableReference + 1)).Value2 = "Obs #";
+                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 1), "A" + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+
+                for (int i = 0; i < model.arrayYConverted.RowCount; i++)
+                {
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + 2 + i), "A" + (advancedTableReference + 2 + i)).Value2 = (i + 1);
+                }
+
+                ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + model.arrayYConverted.RowCount + 1), "A" + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
             }
-
-    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range("A" + (advancedTableReference + model.arrayYConverted.RowCount + 1), "A" + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
 
             if (model.isOriginalEnabledInAdvancedOptions)
             {

@@ -63,23 +63,18 @@ namespace Terry_IN_BA_Regression
 
             if (textBox1Selected == true)
             {
-
                 textBox1.Text = input.cellnames;
                 output.arrayY = input.array;
                 output.yR = input.totalItems / input.columns.Count;
                 output.yC = input.columns.Count;
-
             }
             else if (textBox2Selected == true) 
             {
-
                 textBox2.Text = input.cellnames;
                 output.arrayX = input.array;
                 output.xR = input.totalItems / input.columns.Count;
                 output.xC = input.columns.Count;
-
             }
-
         }
 
         private void textBox1_MouseClick(object sender, MouseEventArgs e)
@@ -106,8 +101,7 @@ namespace Terry_IN_BA_Regression
 
         private void button1_Click(object sender, EventArgs e)
         {
-            onNewOkClick();
-            //onOKClick();
+            onOkClick();
         }
 
         private void checkBox3_CheckedChanged(object sender, EventArgs e)
@@ -123,23 +117,18 @@ namespace Terry_IN_BA_Regression
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-
-
         }
 
         private void label9_Click(object sender, EventArgs e)
         {
-
         }
 
         private void tabPage4_Click(object sender, EventArgs e)
         {
-
         }
 
         private void tabPage5_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -179,21 +168,20 @@ namespace Terry_IN_BA_Regression
 
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-
         }
 
-        public void onNewOkClick()
+        public void onOkClick()
         {
-        output.noIntercept = checkBox2.Checked;
-        output.isStandardizedCoefficientsEnabled = checkBox4.Checked;
-        output.isOriginalEnabledInAdvancedOptions = checkBox6.Checked;
-        output.isPredictedEnabledInAdvancedOptions = checkBox7.Checked;
-        output.isConfidenceLimitsEnabledInAdvancedOptions = checkBox8.Checked;
-        output.isLabelsCheckedInBasic = checkBox1.Checked;
-        output.noIntercept = checkBox2.Checked;
-        output.confidenceLevel = textBox3.Text;
+            output.noIntercept = checkBox2.Checked;
+            output.isStandardizedCoefficientsEnabled = checkBox4.Checked;
+            output.isOriginalEnabledInAdvancedOptions = checkBox6.Checked;
+            output.isPredictedEnabledInAdvancedOptions = checkBox7.Checked;
+            output.isConfidenceLimitsEnabledInAdvancedOptions = checkBox8.Checked;
+            output.isLabelsCheckedInBasic = checkBox1.Checked;
+            output.noIntercept = checkBox2.Checked;
+            output.confidenceLevel = textBox3.Text;
 
-        Validator validator = new Validator(input,output);
+            Validator validator = new Validator(input,output);
             if (validator.validate())
             {
                 return;
@@ -204,7 +192,7 @@ namespace Terry_IN_BA_Regression
             View view = new View(newOutput);
             view.createOutputOnASeparateSheet();
             core.clearCache();
-
+            this.Hide();
         }
 
         public void onCancelClick()
@@ -214,23 +202,12 @@ namespace Terry_IN_BA_Regression
 
         private void button6_Click(object sender, EventArgs e)
         {
-            onNewOkClick();
+            onOkClick();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
             onCancelClick();
-        }
-
-        public static string IntToLetters(int value)
-        {
-            string result = string.Empty;
-            while (--value >= 0)
-            {
-                result = (char)('A' + value % 26) + result;
-                value /= 26;
-            }
-            return result;
         }
     }
 }
