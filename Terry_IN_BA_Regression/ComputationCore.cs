@@ -58,13 +58,7 @@ namespace Terry_IN_BA_Regression
             computeTStar();
             computeLLAndUL();
             computeVIF();
-            computeLLMeanAndULMean();
-            computeLLPredictedAndULPredicted();
-            computeResiduals();
-            computeStandardizedResiduals();
-            computeStudentizedResiduals();
-            computePRESSResiduals();
-            computeRStudentResiduals();
+            bundleCompute();
         }
 
         private void init()
@@ -610,75 +604,56 @@ namespace Terry_IN_BA_Regression
 
         }
 
-        private void computeLLMeanAndULMean()
+        private void bundleCompute()
         {
             for (int i = 0; i < output.arrayXConverted.RowCount; i++)
             {
-                Matrix<double> m1 = output.arrayXConverted.Row(i).ToRowMatrix();
-                Matrix<double> m2 = output.arrayXConverted.Transpose();
-                Matrix<double> m3 = output.arrayXConverted;
-                Matrix<double> m4 = output.arrayXConverted.Row(i).ToRowMatrix().Transpose();
+                if (output.isConfidenceLimitsEnabledInAdvancedOptions)
+                {
+                    Matrix<double> m1 = output.arrayXConverted.Row(i).ToRowMatrix();
+                    Matrix<double> m2 = output.arrayXConverted.Transpose();
+                    Matrix<double> m3 = output.arrayXConverted;
+                    Matrix<double> m4 = output.arrayXConverted.Row(i).ToRowMatrix().Transpose();
 
-                output.LLMean[i, 0] = output.yCap[i, 0] - output.tStar * Math.Sqrt(output.MSE * (m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
-                output.ULMean[i, 0] = output.yCap[i, 0] + output.tStar * Math.Sqrt(output.MSE * (m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
-            }
-        }
+                    output.LLMean[i, 0] = output.yCap[i, 0] - output.tStar * Math.Sqrt(output.MSE * (m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
+                    output.ULMean[i, 0] = output.yCap[i, 0] + output.tStar * Math.Sqrt(output.MSE * (m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
 
-        private void computeLLPredictedAndULPredicted()
-        {
-            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
-            {
-                Matrix<double> m1 = output.arrayXConverted.Row(i).ToRowMatrix();
-                Matrix<double> m2 = output.arrayXConverted.Transpose();
-                Matrix<double> m3 = output.arrayXConverted;
-                Matrix<double> m4 = output.arrayXConverted.Row(i).ToRowMatrix().Transpose();
+                    output.LLPred[i, 0] = output.yCap[i, 0] - output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
+                    output.ULPred[i, 0] = output.yCap[i, 0] + output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
+                }
 
-                output.LLPred[i, 0] = output.yCap[i, 0] - output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
-                output.ULPred[i, 0] = output.yCap[i, 0] + output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
-            }
-        }
+                if (output.isResidualsEnabledInAdvancedOptions)
+                {
+                    output.residuals[i, 0] = output.arrayYConverted[i, 0] - output.yCap[i, 0];
+                }
 
-        private void computeResiduals()
-        {
-            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
-            {
-                output.residuals[i, 0] = output.arrayYConverted[i, 0] - output.yCap[i, 0];
-            }
-        }
+                if (output.isStandardizedResidualsEnabledInAdvancedOtions)
+                {
+                    output.standardizedResiduals[i, 0] = (output.arrayYConverted[i, 0] - output.yCap[i, 0]) / (Math.Sqrt(output.MSE));
+                }
 
-        private void computeStandardizedResiduals()
-        {
-            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
-            {
-                output.standardizedResiduals[i, 0] = (output.arrayYConverted[i, 0] - output.yCap[i, 0])/ (Math.Sqrt(output.MSE));
-            }
-        }
+                Matrix<double> H = null;
 
-        public void computeStudentizedResiduals()
-        {
-            Matrix<double> H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
-            for (int i = 0; i < output.studentizedResiduals.RowCount; i++)
-            {
-                output.studentizedResiduals[i, 0] = output.residuals[i, 0] / (Math.Sqrt(output.MSE * (1 - H[i, i]))); 
-            }
-        }
+                if (output.isStudentizedResidualsEnabledInAdvancedOptions || output.isPRESSResidualsEnabledInAdvancedOptions || output.isRStudentEnabledInAdvancedOptions)
+                {
+                    H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
+                }
 
-        public void computePRESSResiduals()
-        {
-            Matrix<double> H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
-            for (int i = 0; i < output.PRESSResiduals.RowCount; i++)
-            {
-                output.PRESSResiduals[i, 0] = output.residuals[i, 0] / (1 - H[i, i]);
-            }
-        }
+                if (output.isRStudentEnabledInAdvancedOptions)
+                {
+                    output.studentizedResiduals[i, 0] = output.residuals[i, 0] / (Math.Sqrt(output.MSE * (1 - H[i, i])));
+                }
 
-        public void computeRStudentResiduals()
-        {
-            Matrix<double> H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
-            for (int i = 0; i < output.RStudentResiduals.RowCount; i++)
-            {
-                double sSquare = ((((output.n - output.k - 1) * output.MSE) - ((output.residuals[i, 0] * output.residuals[i, 0])/(1 - H[i, i])))/(output.n - output.k));
-                output.RStudentResiduals[i, 0] = (output.residuals[i, 0] / (Math.Sqrt(sSquare * (1 - H[i, i])))); 
+                if (output.isPRESSResidualsEnabledInAdvancedOptions)
+                {
+                    output.PRESSResiduals[i, 0] = output.residuals[i, 0] / (1 - H[i, i]);
+                }
+
+                if (output.isRStudentEnabledInAdvancedOptions)
+                {
+                    double sSquare = ((((output.n - output.k - 1) * output.MSE) - ((output.residuals[i, 0] * output.residuals[i, 0]) / (1 - H[i, i]))) / (output.n - output.k));
+                    output.RStudentResiduals[i, 0] = (output.residuals[i, 0] / (Math.Sqrt(sSquare * (1 - H[i, i]))));
+                }
             }
         }
 
