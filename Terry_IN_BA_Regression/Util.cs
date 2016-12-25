@@ -37,6 +37,8 @@ namespace Terry_IN_BA_Regression
             Microsoft.Office.Interop.Excel.Range range = Globals.ThisAddIn.Application.Selection as Microsoft.Office.Interop.Excel.Range;
             string cellnames = null;
             char[] delimiterChars = { '$' };
+            String[] s = { };
+
             if (range != null)
             {
                 for (int areaIndex = 1; areaIndex <= range.Areas.Count; areaIndex++)
@@ -54,7 +56,7 @@ namespace Terry_IN_BA_Regression
                         string address = range.Areas[areaIndex].Cells[cellIndex].Address;
                         string value = "" + range.Areas[areaIndex].Cells[cellIndex].Value;
                         string[] words = address.Split(delimiterChars);
-                        cellnames += " [" + words[1] + words[2] + " , " + value + "] ";
+                        cellnames += "[" + words[1] + words[2] + " , " + value + "] ";
                         columns.Add(words[1]);
                         totalItems++;
                     }
@@ -79,7 +81,7 @@ namespace Terry_IN_BA_Regression
                         string address = range.Areas[areaIndex].Cells[cellIndex].Address;
                         string value = "" + range.Areas[areaIndex].Cells[cellIndex].Value;
                         string[] words = address.Split(delimiterChars);
-                        cellnames += " [" + words[1] + words[2] + " , " + value + "] ";
+                        cellnames += "[" + words[1] + words[2] + "," + value + "] ";
                         array[r, c] = value;
                         c++;
                         if (c == columns.Count)
@@ -89,10 +91,12 @@ namespace Terry_IN_BA_Regression
                         }
                     }
                 }
+
+                s = System.Text.RegularExpressions.Regex.Split(cellnames," ");
             }
 
             input.array = array;
-            input.cellnames = cellnames;
+            input.cellnames = s[0] + " : " + s[s.Length-2];
             input.columns = columns;
             input.totalItems = totalItems;
 
