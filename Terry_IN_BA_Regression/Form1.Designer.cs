@@ -803,11 +803,12 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(273, 269);
+            this.label5.Location = new System.Drawing.Point(270, 267);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(74, 20);
+            this.label5.Size = new System.Drawing.Size(84, 20);
             this.label5.TabIndex = 2;
-            this.label5.Text = "Written by";
+            this.label5.Text = "Engineering";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // tabControl2
             // 
