@@ -37,7 +37,7 @@ namespace Terry_IN_BA_Regression
             Microsoft.Office.Interop.Excel.Range range = Globals.ThisAddIn.Application.Selection as Microsoft.Office.Interop.Excel.Range;
             string cellnames = null;
             char[] delimiterChars = { '$' };
-            String[] s = { };
+            String[] selectedRangeText = { };
 
             if (range != null)
             {
@@ -92,11 +92,11 @@ namespace Terry_IN_BA_Regression
                     }
                 }
 
-                s = System.Text.RegularExpressions.Regex.Split(cellnames," ");
+                selectedRangeText = System.Text.RegularExpressions.Regex.Split(cellnames," ");
             }
 
             input.array = array;
-            input.cellnames = s[0] + " : " + s[s.Length-2];
+            input.cellnames = selectedRangeText[0] + " : " + selectedRangeText[selectedRangeText.Length-2];
             input.columns = columns;
             input.totalItems = totalItems;
 
