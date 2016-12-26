@@ -54,6 +54,7 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> RStudentResiduals;
         public Matrix<double> Leverage;
         public Matrix<double> CooksD;
+        public Matrix<double> DFFITS;
         public double SDy;
         public double dfe;
         public double tStar;
@@ -73,6 +74,7 @@ namespace Terry_IN_BA_Regression
         public Boolean isRStudentEnabledInAdvancedOptions;
         public Boolean isLeverageEnabledInAdvancedOptions;
         public Boolean isCooksDEnabledInAdvancedOptions;
+        public Boolean isDFFITSEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
     }
