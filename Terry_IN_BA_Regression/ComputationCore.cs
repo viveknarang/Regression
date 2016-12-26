@@ -404,6 +404,7 @@ namespace Terry_IN_BA_Regression
             output.studentizedResiduals = DenseMatrix.OfArray(p);
             output.PRESSResiduals = DenseMatrix.OfArray(p);
             output.RStudentResiduals = DenseMatrix.OfArray(p);
+            output.Leverage = DenseMatrix.OfArray(p);
 
             p = new double[1, output.xVariables.Count];
 
@@ -634,7 +635,7 @@ namespace Terry_IN_BA_Regression
 
                 Matrix<double> H = null;
 
-                if (output.isStudentizedResidualsEnabledInAdvancedOptions || output.isPRESSResidualsEnabledInAdvancedOptions || output.isRStudentEnabledInAdvancedOptions)
+                if (output.isStudentizedResidualsEnabledInAdvancedOptions || output.isPRESSResidualsEnabledInAdvancedOptions || output.isRStudentEnabledInAdvancedOptions || output.isLeverageEnabledInAdvancedOptions)
                 {
                     H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
                 }
@@ -653,6 +654,11 @@ namespace Terry_IN_BA_Regression
                 {
                     double sSquare = ((((output.n - output.k - 1) * output.MSE) - ((output.residuals[i, 0] * output.residuals[i, 0]) / (1 - H[i, i]))) / (output.n - output.k));
                     output.RStudentResiduals[i, 0] = (output.residuals[i, 0] / (Math.Sqrt(sSquare * (1 - H[i, i]))));
+                }
+
+                if (output.isLeverageEnabledInAdvancedOptions)
+                {
+                    output.Leverage[i, 0] = H[i, i];
                 }
             }
         }

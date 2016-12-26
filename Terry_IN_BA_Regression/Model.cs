@@ -52,6 +52,7 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> studentizedResiduals;
         public Matrix<double> PRESSResiduals;
         public Matrix<double> RStudentResiduals;
+        public Matrix<double> Leverage;
         public double SDy;
         public double dfe;
         public double tStar;
@@ -69,6 +70,7 @@ namespace Terry_IN_BA_Regression
         public Boolean isStudentizedResidualsEnabledInAdvancedOptions;
         public Boolean isPRESSResidualsEnabledInAdvancedOptions;
         public Boolean isRStudentEnabledInAdvancedOptions;
+        public Boolean isLeverageEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
     }
