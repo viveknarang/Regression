@@ -183,6 +183,7 @@ namespace Terry_IN_BA_Regression
             output.isPRESSResidualsEnabledInAdvancedOptions = checkBox12.Checked;
             output.isRStudentEnabledInAdvancedOptions = checkBox13.Checked;
             output.isLeverageEnabledInAdvancedOptions = checkBox14.Checked;
+            output.isCooksDEnabledInAdvancedOptions = checkBox15.Checked;
             output.isLabelsCheckedInBasic = checkBox1.Checked;
             output.noIntercept = checkBox2.Checked;
             output.confidenceLevel = textBox3.Text;
