@@ -416,6 +416,19 @@ namespace Terry_IN_BA_Regression
             }
 
             output.SDx = DenseMatrix.OfArray(p);
+
+
+            p = new double[output.arrayXConverted.RowCount, output.arrayXConverted.ColumnCount];
+
+            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
+            {
+                for (int j = 0; j < output.arrayXConverted.ColumnCount; j++)
+                {
+                    p[i, j] = 1;
+                }
+            }
+
+            output.DFBETAS = DenseMatrix.OfArray(p);
         }
 
         private void computeStandardizedCoefficients()
@@ -609,6 +622,13 @@ namespace Terry_IN_BA_Regression
 
         private void bundleCompute()
         {
+            Matrix<double> R = null;
+
+            if (output.isDFBETASEnabledInAdvancedOptions)
+            {
+                R = (output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse().Multiply(output.arrayXConverted.Transpose());
+            }
+
             for (int i = 0; i < output.arrayXConverted.RowCount; i++)
             {
                 if (output.isConfidenceLimitsEnabledInAdvancedOptions)
@@ -630,6 +650,9 @@ namespace Terry_IN_BA_Regression
                     output.residuals[i, 0] = output.arrayYConverted[i, 0] - output.yCap[i, 0];
                 }
 
+                output.residuals[i, 0] = output.arrayYConverted[i, 0] - output.yCap[i, 0];
+
+
                 if (output.isStandardizedResidualsEnabledInAdvancedOtions)
                 {
                     output.standardizedResiduals[i, 0] = (output.arrayYConverted[i, 0] - output.yCap[i, 0]) / (Math.Sqrt(output.MSE));
@@ -637,7 +660,7 @@ namespace Terry_IN_BA_Regression
 
                 Matrix<double> H = null;
 
-                if (output.isStudentizedResidualsEnabledInAdvancedOptions || output.isPRESSResidualsEnabledInAdvancedOptions || output.isRStudentEnabledInAdvancedOptions || output.isLeverageEnabledInAdvancedOptions || output.isCooksDEnabledInAdvancedOptions || output.isDFFITSEnabledInAdvancedOptions)
+                if (output.isStudentizedResidualsEnabledInAdvancedOptions || output.isPRESSResidualsEnabledInAdvancedOptions || output.isRStudentEnabledInAdvancedOptions || output.isLeverageEnabledInAdvancedOptions || output.isCooksDEnabledInAdvancedOptions || output.isDFFITSEnabledInAdvancedOptions || output.isDFBETASEnabledInAdvancedOptions)
                 {
                     H = output.arrayXConverted.Multiply((output.arrayXConverted.Transpose().Multiply(output.arrayXConverted)).Inverse()).Multiply(output.arrayXConverted.Transpose());
                 }
@@ -651,12 +674,14 @@ namespace Terry_IN_BA_Regression
                 {
                     output.PRESSResiduals[i, 0] = output.residuals[i, 0] / (1 - H[i, i]);
                 }
+              
 
-                if (output.isRStudentEnabledInAdvancedOptions)
+                if (output.isRStudentEnabledInAdvancedOptions || output.isDFBETASEnabledInAdvancedOptions)
                 {
-                    double sSquare = ((((output.n - output.k - 1) * output.MSE) - ((output.residuals[i, 0] * output.residuals[i, 0]) / (1 - H[i, i]))) / (output.n - output.k));
+                    double sSquare = ((((output.n - output.k - 1) * output.MSE) - ((output.residuals[i, 0] * output.residuals[i, 0]) / (1 - H[i, i]))) / (output.n - output.k - 2));
                     output.RStudentResiduals[i, 0] = (output.residuals[i, 0] / (Math.Sqrt(sSquare * (1 - H[i, i]))));
                 }
+
 
                 if (output.isLeverageEnabledInAdvancedOptions)
                 {
@@ -671,6 +696,14 @@ namespace Terry_IN_BA_Regression
                 if (output.isDFFITSEnabledInAdvancedOptions)
                 {
                     output.DFFITS[i, 0] = Math.Sqrt(H[i, i] / (1 - H[i, i])) * output.RStudentResiduals[i, 0];
+                }
+
+                if (output.isDFBETASEnabledInAdvancedOptions)
+                {
+                        for (int j = 0; j < output.arrayXConverted.ColumnCount; j++)
+                        {
+                        output.DFBETAS[i, j] = (R[j, i] / Math.Sqrt(R.Row(j).ToRowMatrix().Multiply(R.Row(j).ToColumnMatrix())[0, 0])) * (output.RStudentResiduals[i, 0] / (Math.Sqrt(1- H[i, i])));
+                        }
                 }
             }
         }

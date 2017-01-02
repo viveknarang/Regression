@@ -330,6 +330,19 @@ namespace Terry_IN_BA_Regression
                 advancedTableIndex++;
             }
 
+            if (model.isResidualsEnabledInAdvancedOptions)
+            {
+                advancedTableIndex++;
+                for (int i = 0; i < model.residuals.RowCount; i++)
+                {
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + advancedTableReference, Util.IntToLetters(advancedTableIndex) + advancedTableReference).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1)).Value2 = "Residual";
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 2 + i), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + 2 + i)).Value2 = model.residuals[i, 0];
+                    ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                }
+            }
+
             if (model.isStandardizedResidualsEnabledInAdvancedOtions)
             {
                 advancedTableIndex++;
@@ -426,6 +439,23 @@ namespace Terry_IN_BA_Regression
                     ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1), Util.IntToLetters(advancedTableIndex) + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
                 }
 
+            }
+
+
+            if (model.isDFBETASEnabledInAdvancedOptions)
+            {
+                advancedTableIndex++;
+                for (int i = 0; i < model.DFBETAS.RowCount; i++)
+                {
+                    for (int j = 0; j < model.DFBETAS.ColumnCount; j++)
+                    {
+                        ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + advancedTableReference, Util.IntToLetters(advancedTableIndex + j) + advancedTableReference).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                        ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 1)).Value2 = "DFBETA " + j;
+                        ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
+                        ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 2 + i), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 2 + i)).Value2 = model.DFBETAS[i, j];
+                        ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + model.arrayYConverted.RowCount + 1), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + model.arrayYConverted.RowCount + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+                    }
+                }
             }
 
             // END ADVANCED TABLE //

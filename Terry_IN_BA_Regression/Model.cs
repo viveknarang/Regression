@@ -55,6 +55,7 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> Leverage;
         public Matrix<double> CooksD;
         public Matrix<double> DFFITS;
+        public Matrix<double> DFBETAS;
         public double SDy;
         public double dfe;
         public double tStar;
@@ -75,6 +76,7 @@ namespace Terry_IN_BA_Regression
         public Boolean isLeverageEnabledInAdvancedOptions;
         public Boolean isCooksDEnabledInAdvancedOptions;
         public Boolean isDFFITSEnabledInAdvancedOptions;
+        public Boolean isDFBETASEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
     }
