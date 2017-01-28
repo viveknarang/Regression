@@ -24,17 +24,21 @@ namespace Terry_IN_BA_Regression
         public void drawGraph()
         {
             Microsoft.Office.Tools.Excel.Workbook workbook = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveWorkbook);
-            var charts = workbook.Charts;
-            var chart = (Chart)charts.Add();
-            chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
-            chart.Location(XlChartLocation.xlLocationAsNewSheet, "Charts");
-            var seriesCollection = (SeriesCollection)chart.SeriesCollection();
-            var series = seriesCollection.NewSeries();
-            series.Values = new double[] { 1d, 3d, 2d, 5d };
-            series.XValues = new string[] { "A", "B", "C", "D" };
-            series.Name = "Series Name";
-        }
 
+            Sheets charts = workbook.Charts;
+            Chart chart = (Chart)charts.Add();
+            chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+            
+            chart.Location(XlChartLocation.xlLocationAsNewSheet, "Chart 1");
+            SeriesCollection seriesCollectionX = (SeriesCollection)chart.SeriesCollection();
+
+            Series seriesX = seriesCollectionX.NewSeries();
+            seriesX.Values = model.arrayYConverted.ToArray();
+            seriesX.XValues = model.arrayXConverted.Column(1).ToArray(); 
+
+            seriesX.Name = model.xVariables.ElementAt(0);
+            seriesCollectionX.Item(1).Delete();
+        }
 
         public void createOutputOnASeparateSheet()
         {
