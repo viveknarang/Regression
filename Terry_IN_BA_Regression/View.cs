@@ -636,7 +636,6 @@ namespace Terry_IN_BA_Regression
                 advancedTableIndex++;
                 for (int i = 0; i < loopLimit; i++)
                 {
-                    r = 0;
                     for (int j = 0; j < model.DFBETAS.ColumnCount; j++)
                     {
                         if (model.arrayXNoYRowNumbers.Contains(i + 1) && model.isLabelsCheckedInBasic || model.arrayXNoYRowNumbers.Contains(i) && !model.isLabelsCheckedInBasic)
@@ -650,7 +649,13 @@ namespace Terry_IN_BA_Regression
                         ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 1), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlContinuous;
                         ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 2 + i), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + 2 + i)).Value2 = model.DFBETAS[r, j];
                         ((Microsoft.Office.Interop.Excel.Worksheet)Globals.ThisAddIn.Application.ActiveSheet).get_Range(Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + loopLimit + 1), Util.IntToLetters(advancedTableIndex + j) + (advancedTableReference + loopLimit + 1)).Cells.Borders[Microsoft.Office.Interop.Excel.XlBordersIndex.xlEdgeBottom].LineStyle = XlLineStyle.xlDouble;
+
                     }
+                    if (model.arrayXNoYRowNumbers.Contains(i + 1) && model.isLabelsCheckedInBasic || model.arrayXNoYRowNumbers.Contains(i) && !model.isLabelsCheckedInBasic)
+                    {
+                        r--;
+                    }
+
                     r++;
                 }
             }
