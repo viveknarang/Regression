@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MathNet.Numerics.Statistics;
+using System.Threading;
 
 namespace Terry_IN_BA_Regression
 {
@@ -23,6 +24,9 @@ namespace Terry_IN_BA_Regression
 
         public Boolean textBox1Selected = false;
         public Boolean textBox2Selected = false;
+
+        private BackgroundWorker backgroundWorker1;
+
 
         public Form1()
         {
@@ -193,6 +197,11 @@ namespace Terry_IN_BA_Regression
 
         public void onOkClick()
         {
+            this.Hide();
+            Form3 progress = new Terry_IN_BA_Regression.Form3();
+            progress.Visible = true;
+
+
             setInputStates();
 
             Validator validator = new Validator(input,output);
@@ -203,9 +212,11 @@ namespace Terry_IN_BA_Regression
 
             ComputationCore core = new ComputationCore(input, output);
             OutputModel newOutput = core.getOutputModel();
-            View view = new View(newOutput);
+            View view = new View(newOutput, input);
             view.createOutputOnASeparateSheet();
             core.clearCache();
+
+            progress.Hide();
             this.Hide();
         }
 
@@ -229,5 +240,13 @@ namespace Terry_IN_BA_Regression
 
         }
 
+        private void toolStripStatusLabel1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void updateStatus(String message)
+        {
+        }
     }
 }

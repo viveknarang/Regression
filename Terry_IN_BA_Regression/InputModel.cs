@@ -11,6 +11,8 @@ namespace Terry_IN_BA_Regression
         public HashSet<String> columns;
         public int totalItems;
         public string[,] array;
+        public string[,] arrayWithObservationNumbers;
         public string cellnames;
+        public Dictionary<string, int>  observationsMap = new Dictionary<string, int>();
     }
 }

@@ -29,6 +29,8 @@ namespace Terry_IN_BA_Regression
 
         public static InputModel doSelectInputFromCurrentSheet()
         {
+            ThisAddIn.form.updateStatus("Selecting values from the sheet ....");
+
             InputModel input = new InputModel();
 
             HashSet<String> columns = new HashSet<String>();
@@ -61,11 +63,9 @@ namespace Terry_IN_BA_Regression
                         totalItems++;
                     }
                 }
-
                 array = new string[(totalItems / columns.Count), columns.Count];
                 cellnames = null;
                 int r = 0, c = 0;
-
                 for (int areaIndex = 1; areaIndex <= range.Areas.Count; areaIndex++)
                 {
                     if (areaIndex > 1000)
@@ -94,16 +94,14 @@ namespace Terry_IN_BA_Regression
 
                 selectedRangeText = System.Text.RegularExpressions.Regex.Split(cellnames," ");
             }
-
             input.array = array;
             input.cellnames = selectedRangeText[0] + " : " + selectedRangeText[selectedRangeText.Length-2];
             input.columns = columns;
             input.totalItems = totalItems;
 
+
+            ThisAddIn.form.updateStatus("Selecting values from the sheet .... [OK]");
             return input;
-
         }
-
-       
     }
 }

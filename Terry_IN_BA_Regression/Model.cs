@@ -10,7 +10,10 @@ namespace Terry_IN_BA_Regression
 {
     public class OutputModel
     {
+        public string[,] arrayXOriginalCopy;
+        public string[,] arrayYOriginalCopy;
         public string[,] arrayX;
+        public HashSet<int> arrayXNoYRowNumbers = new HashSet<int>();
         public string[,] arrayY;
         public string[,] arrayXFilter;
         public string[,] arrayYFilter;
@@ -56,6 +59,12 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> CooksD;
         public Matrix<double> DFFITS;
         public Matrix<double> DFBETAS;
+        public Matrix<double> arrayXNoY;
+        public Matrix<double> arrayXNoYComputedY;
+        public Matrix<double> arrayXNoYLLMean;
+        public Matrix<double> arrayXNoYULMean;
+        public Matrix<double> arrayXNoYLLPred;
+        public Matrix<double> arrayXNoYULPred;
         public double SDy;
         public double dfe;
         public double tStar;

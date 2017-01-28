@@ -60,7 +60,7 @@ namespace Terry_IN_BA_Regression
                     }
                 }
 
-                for (int i = 1; i < output.yR; i++)
+                /*for (int i = 1; i < output.yR; i++)
                 {
                     for (int j = 0; j < output.yC; j++)
                     {
@@ -73,7 +73,7 @@ namespace Terry_IN_BA_Regression
 
                     }
 
-                }
+                }*/
 
             }
             else
@@ -102,7 +102,7 @@ namespace Terry_IN_BA_Regression
                     }
                 }
 
-                for (int i = 0; i < output.yR; i++)
+                /*for (int i = 0; i < output.yR; i++)
                 {
                     for (int j = 0; j < output.yC; j++)
                     {
@@ -115,7 +115,7 @@ namespace Terry_IN_BA_Regression
 
                     }
 
-                }
+                }*/
 
             }
 
