@@ -194,6 +194,8 @@ namespace Terry_IN_BA_Regression
             output.noIntercept = checkBox2.Checked;
             output.confidenceLevel = textBox3.Text;
             output.isScatterPlotCheckedInPAndGSection = checkBox20.Checked;
+            output.isResidualsByPredictedCheckedInPAndGSection = checkBox22.Checked;
+            output.isStandardizedResidualsByPredictedCheckedInPAndGSection = checkBox24.Checked;
         }
 
         public void onOkClick()

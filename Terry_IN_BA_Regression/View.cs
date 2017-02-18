@@ -19,67 +19,148 @@ namespace Terry_IN_BA_Regression
         {
             this.model = model;
             this.input = input;
-            if (model.isScatterPlotCheckedInPAndGSection)
-            {
-                this.drawScatterPlots();
-            }
+            this.drawPlots();
         }
 
-        public void drawScatterPlots()
+        public void drawPlots()
         {
             Microsoft.Office.Tools.Excel.Workbook workbook = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveWorkbook);
             Sheets charts = workbook.Charts;            
             SeriesCollection seriesCollectionX = null;
             Series seriesX = null;
 
-            Microsoft.Office.Interop.Excel.ChartObjects ChartObjects1 = (Microsoft.Office.Interop.Excel.ChartObjects)workbook.Sheets.Add().ChartObjects();
+            Microsoft.Office.Interop.Excel.ChartObjects ChartObjects = (Microsoft.Office.Interop.Excel.ChartObjects)workbook.Sheets.Add().ChartObjects();
+
+            int i = 0;
 
             int x1 = 100, x3 = 600;
 
-            for (int i = 0; i < model.xVariables.Count; i++)
+            if (model.isScatterPlotCheckedInPAndGSection)
+            {
+                for (i = 0; i < model.xVariables.Count; i++)
+                {
+                    Microsoft.Office.Interop.Excel.ChartObject chartObject;
+
+                    if ((i + 1) % 2 == 0)
+                    {
+                        chartObject = ChartObjects.Add(x3, 20 + (200 * (i - ((i) % 2))), 400, 350);
+                    }
+                    else
+                    {
+                        chartObject = ChartObjects.Add(x1, 20 + (200 * i), 400, 350);
+                    }
+
+                    Chart chart = chartObject.Chart;
+                    chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+                    chart.HasTitle = true;
+                    chart.ChartTitle.Text = "Scatterplot of " + model.yVariable + " by " + model.xVariables.ElementAt(i);
+                    chart.HasLegend = false;
+                    seriesCollectionX = (SeriesCollection)chart.SeriesCollection();
+                    seriesX = seriesCollectionX.NewSeries();
+                    seriesX.Values = model.arrayYConverted.ToArray();
+                    seriesX.XValues = model.arrayXConverted.Column(i + 1).ToArray();
+                    seriesX.Name = model.xVariables.ElementAt(i);
+                    seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                    chart.WallsAndGridlines2D = false;
+                    Axis axis = (Axis)chart.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                    axis.HasTitle = true;
+                    axis.AxisTitle.Text = model.yVariable;
+                    axis.HasMajorGridlines = false;
+                    axis.HasMinorGridlines = false;
+                    Axis axis2 = (Axis)chart.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                    axis2.HasTitle = true;
+                    axis2.AxisTitle.Text = model.xVariables.ElementAt(i);
+                    axis2.HasMajorGridlines = false;
+                    axis2.HasMinorGridlines = false;
+                    axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
+                    axis.MinimumScale = model.arrayYConverted.Column(0).Min();
+                    axis.CrossesAt = model.arrayYConverted.Column(0).Min();
+                    axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+                }
+            }
+
+            if (model.isResidualsByPredictedCheckedInPAndGSection)
             {
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i+1)%2 == 0)
+                if ((i + 1) % 2 == 0)
                 {
-                    chartObject1 = ChartObjects1.Add(x3, 20 + (200 * (i - ((i)%2))) , 400, 350);
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (i - ((i) % 2))), 400, 350);
                 }
                 else
                 {
-                    chartObject1 = ChartObjects1.Add(x1, 20 + (200 * i), 400, 350);
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * i), 400, 350);
                 }
 
-                Chart chart = chartObject1.Chart;
-
-                chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
-                chart.HasTitle = true;
-                chart.ChartTitle.Text = "Scatterplot of " + model.yVariable + " by " + model.xVariables.ElementAt(i);
-                chart.HasLegend = false;
-                seriesCollectionX = (SeriesCollection)chart.SeriesCollection();
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "Residual Plot By Predicted Values of " + model.yVariable;
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
                 seriesX = seriesCollectionX.NewSeries();
-                seriesX.Values = model.arrayYConverted.ToArray();
-                seriesX.XValues = model.arrayXConverted.Column(i + 1).ToArray();
-                seriesX.Name = model.xVariables.ElementAt(i);
+                seriesX.Values = model.residuals.ToArray();
+                seriesX.XValues = model.yCap.ToArray();
+                seriesX.Name = "Predicted";
                 seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
-                chart.WallsAndGridlines2D = false;
-                Axis axis = (Axis)chart.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
-                axis.HasTitle = true;
-                axis.AxisTitle.Text = model.yVariable;                
-                axis.HasMajorGridlines = false;
-                axis.HasMinorGridlines = false;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "Residuals";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "Predicted Value of " + model.yVariable; ;
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+                axis21.MinimumScale = model.yCap.Column(0).Min();
+                axis1.MinimumScale = model.residuals.Column(0).Min();
+                axis1.CrossesAt = model.residuals.Column(0).Min();
+                axis21.CrossesAt = model.yCap.Column(0).Min();
+            }
 
-                Axis axis2 = (Axis)chart.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
-                axis2.HasTitle = true;
-                axis2.AxisTitle.Text = model.xVariables.ElementAt(i);
-                axis2.HasMajorGridlines = false;
-                axis2.HasMinorGridlines = false;
+            if (model.isStandardizedResidualsByPredictedCheckedInPAndGSection)
+            {
+                i++;
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
-                axis.MinimumScale = model.arrayYConverted.Column(0).Min();
+                if ((i + 1) % 2 == 0)
+                {
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (i - ((i) % 2))), 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * i), 400, 350);
+                }
 
-                axis.CrossesAt = model.arrayYConverted.Column(0).Min();
-                axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();              
-            }           
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "Residual Plot By Predicted Values of " + model.yVariable;
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.standardizedResiduals.ToArray();
+                seriesX.XValues = model.yCap.ToArray();
+                seriesX.Name = "Predicted";
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "Standardized Residuals";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "Predicted Value of " + model.yVariable; ;
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+                axis21.MinimumScale = model.yCap.Column(0).Min();
+                axis1.MinimumScale = model.standardizedResiduals.Column(0).Min();
+                axis1.CrossesAt = model.standardizedResiduals.Column(0).Min();
+                axis21.CrossesAt = model.yCap.Column(0).Min();
+            }
 
         }
 

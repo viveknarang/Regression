@@ -19,7 +19,16 @@ namespace Terry_IN_BA_Regression
 
         private void progressBar1_Click(object sender, EventArgs e)
         {
-        }        
-       
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

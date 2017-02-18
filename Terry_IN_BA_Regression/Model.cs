@@ -89,5 +89,7 @@ namespace Terry_IN_BA_Regression
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
         public Boolean isScatterPlotCheckedInPAndGSection;
+        public Boolean isResidualsByPredictedCheckedInPAndGSection;
+        public Boolean isStandardizedResidualsByPredictedCheckedInPAndGSection;
     }
 }
