@@ -11,6 +11,7 @@ namespace Terry_IN_BA_Regression
     public class View
     {
         public Microsoft.Office.Interop.Excel.Worksheet newWorksheet;
+
         public OutputModel model = new OutputModel();
         public InputModel input = new InputModel();
 
@@ -26,18 +27,51 @@ namespace Terry_IN_BA_Regression
             Microsoft.Office.Tools.Excel.Workbook workbook = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveWorkbook);
 
             Sheets charts = workbook.Charts;
-            Chart chart = (Chart)charts.Add();
-            chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+
+            Chart chart = null;
             
-            chart.Location(XlChartLocation.xlLocationAsNewSheet, "Chart 1");
-            SeriesCollection seriesCollectionX = (SeriesCollection)chart.SeriesCollection();
+            SeriesCollection seriesCollectionX = null;
+            Series seriesX = null;
 
-            Series seriesX = seriesCollectionX.NewSeries();
-            seriesX.Values = model.arrayYConverted.ToArray();
-            seriesX.XValues = model.arrayXConverted.Column(1).ToArray(); 
+            for (int i = 0; i < model.xVariables.Count; i++)
+            {
+                chart = (Chart)charts.Add();
+                chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+                //chart.Location(XlChartLocation.xlLocationAsObject, "Chart 1");
+                chart.HasTitle = true;
+                chart.ChartTitle.Text = "Scatterplot of " + model.yVariable + " by " + model.xVariables.ElementAt(i);
+                chart.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.arrayYConverted.ToArray();
+                seriesX.XValues = model.arrayXConverted.Column(i + 1).ToArray();
+                seriesX.Name = model.xVariables.ElementAt(i);
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart.WallsAndGridlines2D = false;
+                Axis axis = (Axis)chart.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis.HasTitle = true;
+                axis.AxisTitle.Text = model.yVariable;                
+                axis.HasMajorGridlines = false;
+                axis.HasMinorGridlines = false;
 
-            seriesX.Name = model.xVariables.ElementAt(0);
-            seriesCollectionX.Item(1).Delete();
+                Axis axis2 = (Axis)chart.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis2.HasTitle = true;
+                axis2.AxisTitle.Text = model.xVariables.ElementAt(i);
+                axis2.HasMajorGridlines = false;
+                axis2.HasMinorGridlines = false;
+
+                axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
+                axis.MinimumScale = model.arrayYConverted.Column(0).Min();
+
+                axis.CrossesAt = model.arrayYConverted.Column(0).Min();
+                axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+
+                if (i == 0)
+                {
+                   seriesCollectionX.Item(1).Delete();
+                }
+            }           
+
         }
 
         public void createOutputOnASeparateSheet()

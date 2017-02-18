@@ -197,19 +197,18 @@ namespace Terry_IN_BA_Regression
 
         public void onOkClick()
         {
-            this.Hide();
-            Form3 progress = new Terry_IN_BA_Regression.Form3();
-            progress.Visible = true;
-
-
             setInputStates();
 
-            Validator validator = new Validator(input,output);
+            Validator validator = new Validator(input, output);
             if (validator.validate())
             {
                 return;
             }
 
+            this.Hide();
+            Form3 progress = new Terry_IN_BA_Regression.Form3();
+            progress.Visible = true;
+            
             ComputationCore core = new ComputationCore(input, output);
             OutputModel newOutput = core.getOutputModel();
             View view = new View(newOutput, input);
@@ -247,6 +246,21 @@ namespace Terry_IN_BA_Regression
 
         public void updateStatus(String message)
         {
+        }
+
+        private void checkBox20_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox8_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox30_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
