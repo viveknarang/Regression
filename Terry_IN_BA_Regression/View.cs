@@ -19,25 +19,39 @@ namespace Terry_IN_BA_Regression
         {
             this.model = model;
             this.input = input;
-            this.drawGraph();
+            if (model.isScatterPlotCheckedInPAndGSection)
+            {
+                this.drawScatterPlots();
+            }
         }
 
-        public void drawGraph()
+        public void drawScatterPlots()
         {
             Microsoft.Office.Tools.Excel.Workbook workbook = Globals.Factory.GetVstoObject(Globals.ThisAddIn.Application.ActiveWorkbook);
-
-            Sheets charts = workbook.Charts;
-
-            Chart chart = null;
-            
+            Sheets charts = workbook.Charts;            
             SeriesCollection seriesCollectionX = null;
             Series seriesX = null;
 
+            Microsoft.Office.Interop.Excel.ChartObjects ChartObjects1 = (Microsoft.Office.Interop.Excel.ChartObjects)workbook.Sheets.Add().ChartObjects();
+
+            int x1 = 100, x3 = 600;
+
             for (int i = 0; i < model.xVariables.Count; i++)
             {
-                chart = (Chart)charts.Add();
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
+
+                if ((i+1)%2 == 0)
+                {
+                    chartObject1 = ChartObjects1.Add(x3, 20 + (200 * (i - ((i)%2))) , 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects1.Add(x1, 20 + (200 * i), 400, 350);
+                }
+
+                Chart chart = chartObject1.Chart;
+
                 chart.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
-                //chart.Location(XlChartLocation.xlLocationAsObject, "Chart 1");
                 chart.HasTitle = true;
                 chart.ChartTitle.Text = "Scatterplot of " + model.yVariable + " by " + model.xVariables.ElementAt(i);
                 chart.HasLegend = false;
@@ -64,12 +78,7 @@ namespace Terry_IN_BA_Regression
                 axis.MinimumScale = model.arrayYConverted.Column(0).Min();
 
                 axis.CrossesAt = model.arrayYConverted.Column(0).Min();
-                axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
-
-                if (i == 0)
-                {
-                   seriesCollectionX.Item(1).Delete();
-                }
+                axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();              
             }           
 
         }

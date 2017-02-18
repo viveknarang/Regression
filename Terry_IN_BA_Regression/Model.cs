@@ -88,5 +88,6 @@ namespace Terry_IN_BA_Regression
         public Boolean isDFBETASEnabledInAdvancedOptions;
         public string confidenceLevel;
         public Boolean isLabelsCheckedInBasic;
+        public Boolean isScatterPlotCheckedInPAndGSection;
     }
 }

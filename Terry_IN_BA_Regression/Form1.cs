@@ -193,6 +193,7 @@ namespace Terry_IN_BA_Regression
             output.isLabelsCheckedInBasic = checkBox1.Checked;
             output.noIntercept = checkBox2.Checked;
             output.confidenceLevel = textBox3.Text;
+            output.isScatterPlotCheckedInPAndGSection = checkBox20.Checked;
         }
 
         public void onOkClick()
