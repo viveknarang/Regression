@@ -211,8 +211,8 @@ namespace Terry_IN_BA_Regression
                     axis2.HasMajorGridlines = false;
                     axis2.HasMinorGridlines = false;
                     axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
-                    axis.MinimumScale = model.arrayYConverted.Column(0).Min();
-                    axis.CrossesAt = model.arrayYConverted.Column(0).Min();
+                    axis.MinimumScale = model.residuals.Column(0).Min();
+                    axis.CrossesAt = model.residuals.Column(0).Min();
                     axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
                 }
             }
@@ -258,16 +258,15 @@ namespace Terry_IN_BA_Regression
                     axis2.HasMajorGridlines = false;
                     axis2.HasMinorGridlines = false;
                     axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
-                    axis.MinimumScale = model.arrayYConverted.Column(0).Min();
-                    axis.CrossesAt = model.arrayYConverted.Column(0).Min();
+                    axis.MinimumScale = model.standardizedResiduals.Column(0).Min();
+                    axis.CrossesAt = model.standardizedResiduals.Column(0).Min();
                     axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
                 }
             }
 
             if (model.isResidualsCheckedInPAndGSection)
             {
-                MessageBox.Show(model.standardNormalQuantile.ToString());
-
+                i++;
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
                 if ((i + 1) % 2 == 0)
@@ -288,7 +287,7 @@ namespace Terry_IN_BA_Regression
                 chart1.HasLegend = false;
                 seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
                 seriesX = seriesCollectionX.NewSeries();
-                seriesX.Values = model.standardNormalQuantile.ToArray();
+                seriesX.Values = model.standardNormalQuantileForResiduals.ToArray();
                 seriesX.XValues = model.residuals.ToArray();
                 //seriesX.Name = "Residuals";
                 seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
@@ -303,12 +302,236 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Residuals";
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
-                axis21.MinimumScale = model.yCap.Column(0).Min();
-                axis1.MinimumScale = model.standardNormalQuantile.Column(0).Min();
-                axis1.CrossesAt = model.standardNormalQuantile.Column(0).Min();
-                axis21.CrossesAt = model.yCap.Column(0).Min();
+                axis21.MinimumScale = model.residuals.Column(0).Min();
+                axis1.MinimumScale = model.standardNormalQuantileForResiduals.Column(0).Min();
+                axis1.CrossesAt = model.standardNormalQuantileForResiduals.Column(0).Min();
+                axis21.CrossesAt = model.residuals.Column(0).Min();
 
             }
+
+            if (model.isStandardizedResidualsByPredictedCheckedInPAndGSection)
+            {
+                i++;
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
+
+                if ((i + 1) % 2 == 0)
+                {
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                }
+
+                globalCounter++;
+
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "Normal Plot of Standardized Residuals";
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.standardNormalQuantileForStandardizedResiduals.ToArray();
+                seriesX.XValues = model.standardizedResiduals.ToArray();
+                //seriesX.Name = "Residuals";
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "Theoretical Normal Scores";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "Standardized Residuals";
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+                axis21.MinimumScale = model.standardizedResiduals.Column(0).Min();
+                axis1.MinimumScale = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                axis1.CrossesAt = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                axis21.CrossesAt = model.standardizedResiduals.Column(0).Min();
+
+            }
+
+            if (model.isYVariableCheckedInPAndGSection)
+            {
+                i++;
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
+
+                if ((i + 1) % 2 == 0)
+                {
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                }
+
+                globalCounter++;
+
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatter;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "Normal Plot of Response";
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.standardNormalQuantileForStandardizedResiduals.ToArray();
+                seriesX.XValues = model.arrayYConverted.ToArray();
+                //seriesX.Name = "Residuals";
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "Theoretical Normal Scores";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "" + model.yVariable;
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+                axis21.MinimumScale = model.arrayYConverted.Column(0).Min();
+                axis1.MinimumScale = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                axis1.CrossesAt = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                axis21.CrossesAt = model.arrayYConverted.Column(0).Min();
+
+            }
+
+            if (model.isLeverageCheckedInPAndGSection)
+            {
+                i++;
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
+
+                if ((i + 1) % 2 == 0)
+                {
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                }
+
+                globalCounter++;
+
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatterLines;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "Leverage Chart";
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.Leverage.ToArray();
+                seriesX.XValues = model.observationNumber.ToArray();
+                //seriesX.Name = "Residuals";
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "Leverage";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "Observation Number";
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+                axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                axis1.MinimumScale = model.Leverage.Column(0).Min();
+                axis1.CrossesAt = model.Leverage.Column(0).Min();
+                axis21.CrossesAt = model.observationNumber.Column(0).Min();
+            }
+
+            if (model.isCooksDCheckedInPAndGSection)
+            {
+                i++;
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
+
+                if ((i + 1) % 2 == 0)
+                {
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                }
+
+                globalCounter++;
+
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatterLines;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "Cook's D Chart";
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.CooksD.ToArray();
+                seriesX.XValues = model.observationNumber.ToArray();
+                //seriesX.Name = "Residuals";
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "Cook's D";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "Observation Number";
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+                axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                axis1.MinimumScale = model.CooksD.Column(0).Min();
+                axis1.CrossesAt = model.CooksD.Column(0).Min();
+                axis21.CrossesAt = model.observationNumber.Column(0).Min();
+            }
+
+            if (model.isDFFITSCheckedInPAndGSection)
+            {
+                i++;
+                Microsoft.Office.Interop.Excel.ChartObject chartObject1;
+
+                if ((i + 1) % 2 == 0)
+                {
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                }
+                else
+                {
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                }
+
+                globalCounter++;
+
+                Chart chart1 = chartObject1.Chart;
+                chart1.ChartType = Microsoft.Office.Interop.Excel.XlChartType.xlXYScatterLines;
+                chart1.HasTitle = true;
+                chart1.ChartTitle.Text = "DFFITS Chart";
+                chart1.HasLegend = false;
+                seriesCollectionX = (SeriesCollection)chart1.SeriesCollection();
+                seriesX = seriesCollectionX.NewSeries();
+                seriesX.Values = model.DFFITS.ToArray();
+                seriesX.XValues = model.observationNumber.ToArray();
+                //seriesX.Name = "Residuals";
+                seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
+                chart1.WallsAndGridlines2D = false;
+                Axis axis1 = (Axis)chart1.Axes(XlAxisType.xlValue, XlAxisGroup.xlPrimary);
+                axis1.HasTitle = true;
+                axis1.AxisTitle.Text = "DFFITS";
+                axis1.HasMajorGridlines = false;
+                axis1.HasMinorGridlines = false;
+                Axis axis21 = (Axis)chart1.Axes(XlAxisType.xlCategory, XlAxisGroup.xlPrimary);
+                axis21.HasTitle = true;
+                axis21.AxisTitle.Text = "Observation Number";
+                axis21.HasMajorGridlines = false;
+                axis21.HasMinorGridlines = false;
+
+                axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                axis1.MinimumScale = model.DFFITS.Column(0).Min();
+                axis1.CrossesAt = model.DFFITS.Column(0).Min();
+                axis21.CrossesAt = model.observationNumber.Column(0).Min();
+            }
+
 
         }
 

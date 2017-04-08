@@ -60,7 +60,9 @@ namespace Terry_IN_BA_Regression
             computeVIF();
             bundleCompute();
             computeYCapforOddTuples();
-            computeCumulativeProportion();
+            computeStandardNormalQuantileForResiduals();
+            computeStandardNormalQuantileForStandardizedResiduals();
+            computeStandardNormalQuantileForDependentVariable();
 
             if (output.arrayXNoYRowNumbers.Count != 0)
             {
@@ -535,12 +537,21 @@ namespace Terry_IN_BA_Regression
             output.Leverage = DenseMatrix.OfArray(p);
             output.CooksD = DenseMatrix.OfArray(p);
             output.DFFITS = DenseMatrix.OfArray(p);
+            output.standardNormalQuantileForResiduals = DenseMatrix.OfArray(p);
+            output.cumulativeProportionForResiduals = DenseMatrix.OfArray(p);
+            output.standardNormalQuantileForStandardizedResiduals = DenseMatrix.OfArray(p);
+            output.cumulativeProportionForStandardizedResiduals = DenseMatrix.OfArray(p);
+            output.standardNormalQuantileForDependentVariable = DenseMatrix.OfArray(p);
+            output.cumulativeProportionForDependentVariable = DenseMatrix.OfArray(p);
 
-            output.sortedResiduals = DenseMatrix.OfArray(p);
-            output.standardNormalQuantile = DenseMatrix.OfArray(p);
-            output.cumulativeProportion = DenseMatrix.OfArray(p);
+            p = new double[output.arrayXConverted.RowCount, 1];
 
+            for (int i = 0; i < output.arrayXConverted.RowCount; i++)
+            {
+                p[i, 0] = i + 1;
+            }
 
+            output.observationNumber = DenseMatrix.OfArray(p);
 
             p = new double[1, output.xVariables.Count];
 
@@ -905,7 +916,7 @@ namespace Terry_IN_BA_Regression
             }
         }
 
-        public void computeCumulativeProportion()
+        public void computeStandardNormalQuantileForResiduals()
         {
             double[] sortedResiduals = output.residuals.Column(0).ToArray();
             Array.Sort(sortedResiduals);
@@ -913,12 +924,35 @@ namespace Terry_IN_BA_Regression
             for (int index = 0; index < output.residuals.RowCount; index++)
             {
                 int indexOf = Array.IndexOf(sortedResiduals, output.residuals[index, 0]);
-                output.cumulativeProportion[index, 0] = (((indexOf + 1) - 0.5)/output.sampleSize);
-                output.standardNormalQuantile[index, 0] = MathNet.Numerics.ExcelFunctions.NormInv(output.cumulativeProportion[index, 0], 0, 1);
+                output.cumulativeProportionForResiduals[index, 0] = (((indexOf + 1) - 0.5)/output.sampleSize);
+                output.standardNormalQuantileForResiduals[index, 0] = MathNet.Numerics.ExcelFunctions.NormInv(output.cumulativeProportionForResiduals[index, 0], 0, 1);
             }
+        }
 
-            MessageBox.Show(output.standardNormalQuantile.ToString());
-            MessageBox.Show(output.cumulativeProportion.ToString());
+        public void computeStandardNormalQuantileForStandardizedResiduals()
+        {
+            double[] sortedResiduals = output.standardizedResiduals.Column(0).ToArray();
+            Array.Sort(sortedResiduals);
+
+            for (int index = 0; index < output.standardizedResiduals.RowCount; index++)
+            {
+                int indexOf = Array.IndexOf(sortedResiduals, output.standardizedResiduals[index, 0]);
+                output.cumulativeProportionForStandardizedResiduals[index, 0] = (((indexOf + 1) - 0.5) / output.sampleSize);
+                output.standardNormalQuantileForStandardizedResiduals[index, 0] = MathNet.Numerics.ExcelFunctions.NormInv(output.cumulativeProportionForStandardizedResiduals[index, 0], 0, 1);
+            }
+        }
+
+        public void computeStandardNormalQuantileForDependentVariable()
+        {
+            double[] sortedResiduals = output.arrayYConverted.Column(0).ToArray();
+            Array.Sort(sortedResiduals);
+
+            for (int index = 0; index < output.arrayYConverted.RowCount; index++)
+            {
+                int indexOf = Array.IndexOf(sortedResiduals, output.arrayYConverted[index, 0]);
+                output.cumulativeProportionForDependentVariable[index, 0] = (((indexOf + 1) - 0.5) / output.sampleSize);
+                output.standardNormalQuantileForDependentVariable[index, 0] = MathNet.Numerics.ExcelFunctions.NormInv(output.cumulativeProportionForDependentVariable[index, 0], 0, 1);
+            }
         }
 
         public void clearCache()

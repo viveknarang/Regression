@@ -65,9 +65,14 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> arrayXNoYULMean;
         public Matrix<double> arrayXNoYLLPred;
         public Matrix<double> arrayXNoYULPred;
-        public Matrix<double> cumulativeProportion;
-        public Matrix<double> sortedResiduals;
-        public Matrix<double> standardNormalQuantile;
+        public Matrix<double> cumulativeProportionForResiduals;
+        public Matrix<double> standardNormalQuantileForResiduals;
+        public Matrix<double> cumulativeProportionForStandardizedResiduals;
+        public Matrix<double> standardNormalQuantileForStandardizedResiduals;
+        public Matrix<double> cumulativeProportionForDependentVariable;
+        public Matrix<double> standardNormalQuantileForDependentVariable;
+        public Matrix<double> observationNumber;
+
         public int sampleSize; 
         public double SDy;
         public double dfe;
