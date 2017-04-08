@@ -196,6 +196,15 @@ namespace Terry_IN_BA_Regression
             output.isScatterPlotCheckedInPAndGSection = checkBox20.Checked;
             output.isResidualsByPredictedCheckedInPAndGSection = checkBox22.Checked;
             output.isStandardizedResidualsByPredictedCheckedInPAndGSection = checkBox24.Checked;
+            output.isResidualsByXVariablesCheckedInPAndGSection = checkBox23.Checked;
+            output.isStandardizedResidualsByXVariablesCheckedInPAndGSection = checkBox25.Checked;
+            output.isResidualsCheckedInPAndGSection = checkBox26.Checked;
+            output.isYVariableCheckedInPAndGSection = checkBox28.Checked;
+            output.isStandardizedResidualsCheckedInPAndGSection = checkBox27.Checked;
+            output.isOtherCheckedInPAndGSection = checkBox29.Checked;
+            output.isLeverageCheckedInPAndGSection = checkBox30.Checked;
+            output.isDFFITSCheckedInPAndGSection = checkBox32.Checked;
+            output.isCooksDCheckedInPAndGSection = checkBox31.Checked;
         }
 
         public void onOkClick()
@@ -262,6 +271,11 @@ namespace Terry_IN_BA_Regression
         }
 
         private void checkBox30_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
         {
 
         }

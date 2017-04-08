@@ -65,6 +65,10 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> arrayXNoYULMean;
         public Matrix<double> arrayXNoYLLPred;
         public Matrix<double> arrayXNoYULPred;
+        public Matrix<double> cumulativeProportion;
+        public Matrix<double> sortedResiduals;
+        public Matrix<double> standardNormalQuantile;
+        public int sampleSize; 
         public double SDy;
         public double dfe;
         public double tStar;
@@ -91,5 +95,14 @@ namespace Terry_IN_BA_Regression
         public Boolean isScatterPlotCheckedInPAndGSection;
         public Boolean isResidualsByPredictedCheckedInPAndGSection;
         public Boolean isStandardizedResidualsByPredictedCheckedInPAndGSection;
+        public Boolean isResidualsByXVariablesCheckedInPAndGSection;
+        public Boolean isStandardizedResidualsByXVariablesCheckedInPAndGSection;
+        public Boolean isResidualsCheckedInPAndGSection;
+        public Boolean isYVariableCheckedInPAndGSection;
+        public Boolean isStandardizedResidualsCheckedInPAndGSection;
+        public Boolean isOtherCheckedInPAndGSection;
+        public Boolean isLeverageCheckedInPAndGSection;
+        public Boolean isDFFITSCheckedInPAndGSection;
+        public Boolean isCooksDCheckedInPAndGSection;
     }
 }

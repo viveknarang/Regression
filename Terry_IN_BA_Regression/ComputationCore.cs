@@ -60,6 +60,7 @@ namespace Terry_IN_BA_Regression
             computeVIF();
             bundleCompute();
             computeYCapforOddTuples();
+            computeCumulativeProportion();
 
             if (output.arrayXNoYRowNumbers.Count != 0)
             {
@@ -497,6 +498,8 @@ namespace Terry_IN_BA_Regression
 
         private void initializeMatrices()
         {
+            output.sampleSize = output.arrayXConverted.RowCount;
+
             ThisAddIn.form.updateStatus("setting matrices ....");
 
             double[,] p = new double[output.betaCoefficients.RowCount, 1];
@@ -532,6 +535,12 @@ namespace Terry_IN_BA_Regression
             output.Leverage = DenseMatrix.OfArray(p);
             output.CooksD = DenseMatrix.OfArray(p);
             output.DFFITS = DenseMatrix.OfArray(p);
+
+            output.sortedResiduals = DenseMatrix.OfArray(p);
+            output.standardNormalQuantile = DenseMatrix.OfArray(p);
+            output.cumulativeProportion = DenseMatrix.OfArray(p);
+
+
 
             p = new double[1, output.xVariables.Count];
 
@@ -894,6 +903,22 @@ namespace Terry_IN_BA_Regression
                 output.arrayXNoYLLPred[i, 0] = output.arrayXNoYComputedY[i, 0] - output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
                 output.arrayXNoYULPred[i, 0] = output.arrayXNoYComputedY[i, 0] + output.tStar * Math.Sqrt(output.MSE * (1 + m1.Multiply(((m2.Multiply(m3)).Inverse())).Multiply(m4)[0, 0]));
             }
+        }
+
+        public void computeCumulativeProportion()
+        {
+            double[] sortedResiduals = output.residuals.Column(0).ToArray();
+            Array.Sort(sortedResiduals);
+            
+            for (int index = 0; index < output.residuals.RowCount; index++)
+            {
+                int indexOf = Array.IndexOf(sortedResiduals, output.residuals[index, 0]);
+                output.cumulativeProportion[index, 0] = (((indexOf + 1) - 0.5)/output.sampleSize);
+                output.standardNormalQuantile[index, 0] = MathNet.Numerics.ExcelFunctions.NormInv(output.cumulativeProportion[index, 0], 0, 1);
+            }
+
+            MessageBox.Show(output.standardNormalQuantile.ToString());
+            MessageBox.Show(output.cumulativeProportion.ToString());
         }
 
         public void clearCache()
