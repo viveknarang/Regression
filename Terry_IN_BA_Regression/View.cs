@@ -43,7 +43,7 @@ namespace Terry_IN_BA_Regression
                 {
                     Microsoft.Office.Interop.Excel.ChartObject chartObject;
 
-                    if ((i + 1) % 2 == 0)
+                    if ((globalCounter + 1) % 2 == 0)
                     {
                         chartObject = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                     }
@@ -85,9 +85,10 @@ namespace Terry_IN_BA_Regression
 
             if (model.isResidualsByPredictedCheckedInPAndGSection)
             {
+                
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
                     chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                 }
@@ -128,10 +129,9 @@ namespace Terry_IN_BA_Regression
 
             if (model.isStandardizedResidualsByPredictedCheckedInPAndGSection)
             {
-                i++;
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
                     chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                 }
@@ -172,12 +172,12 @@ namespace Terry_IN_BA_Regression
 
             if (model.isResidualsByXVariablesCheckedInPAndGSection)
             {
-                i++;
+              
                 for (i = 0 ; i < model.xVariables.Count; i++)
                 {
                     Microsoft.Office.Interop.Excel.ChartObject chartObject;
 
-                    if ((i + 1) % 2 == 0)
+                    if ((globalCounter + 1) % 2 == 0)
                     {
                         chartObject = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                     }
@@ -219,12 +219,12 @@ namespace Terry_IN_BA_Regression
 
             if (model.isStandardizedResidualsByXVariablesCheckedInPAndGSection)
             {
-                i++;
+             
                 for (i = 0; i < model.xVariables.Count; i++)
                 {
                     Microsoft.Office.Interop.Excel.ChartObject chartObject;
 
-                    if ((i + 1) % 2 == 0)
+                    if ((globalCounter + 1) % 2 == 0)
                     {
                         chartObject = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                     }
@@ -266,10 +266,10 @@ namespace Terry_IN_BA_Regression
 
             if (model.isResidualsCheckedInPAndGSection)
             {
-                i++;
+           
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
                     chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                 }
@@ -309,12 +309,12 @@ namespace Terry_IN_BA_Regression
 
             }
 
-            if (model.isStandardizedResidualsByPredictedCheckedInPAndGSection)
+            if (model.isStandardizedResidualsCheckedInPAndGSection)
             {
-                i++;
+             
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
                     chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                 }
@@ -356,10 +356,10 @@ namespace Terry_IN_BA_Regression
 
             if (model.isYVariableCheckedInPAndGSection)
             {
-                i++;
+          
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
                     chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
                 }
@@ -401,16 +401,18 @@ namespace Terry_IN_BA_Regression
 
             if (model.isLeverageCheckedInPAndGSection)
             {
-                i++;
+                if (globalCounter%2 != 0) {
+                    globalCounter++;
+                }
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
-                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 600, 350);
                 }
                 else
                 {
-                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 600, 350);
                 }
 
                 globalCounter++;
@@ -437,24 +439,35 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Observation Number";
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
+
                 axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                double gap = Math.Abs(model.Leverage.Column(0).Max()) - Math.Abs(model.Leverage.Column(0).Min());
+
+                axis1.MajorUnit = gap / 4;
+                axis1.MinorUnit = gap / 8;
+
+                axis1.MaximumScale = model.Leverage.Column(0).Max();
                 axis1.MinimumScale = model.Leverage.Column(0).Min();
+
                 axis1.CrossesAt = model.Leverage.Column(0).Min();
                 axis21.CrossesAt = model.observationNumber.Column(0).Min();
             }
 
             if (model.isCooksDCheckedInPAndGSection)
             {
-                i++;
+                if (globalCounter % 2 != 0)
+                {
+                    globalCounter++;
+                }
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
-                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 600, 350);
                 }
                 else
                 {
-                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 600, 350);
                 }
 
                 globalCounter++;
@@ -481,24 +494,36 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Observation Number";
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
+
                 axis21.MinimumScale = model.observationNumber.Column(0).Min();
+
+                double gap = Math.Abs(model.CooksD.Column(0).Max()) - Math.Abs(model.CooksD.Column(0).Min());
+
+                axis1.MajorUnit = gap/4;
+                axis1.MinorUnit = gap/8;
+
+                axis1.MaximumScale = model.CooksD.Column(0).Max();
                 axis1.MinimumScale = model.CooksD.Column(0).Min();
+
                 axis1.CrossesAt = model.CooksD.Column(0).Min();
                 axis21.CrossesAt = model.observationNumber.Column(0).Min();
             }
 
             if (model.isDFFITSCheckedInPAndGSection)
             {
-                i++;
+                if (globalCounter % 2 != 0)
+                {
+                    globalCounter++;
+                }
                 Microsoft.Office.Interop.Excel.ChartObject chartObject1;
 
-                if ((i + 1) % 2 == 0)
+                if ((globalCounter + 1) % 2 == 0)
                 {
-                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 400, 350);
+                    chartObject1 = ChartObjects.Add(x3, 20 + (200 * (globalCounter - ((globalCounter) % 2))), 600, 350);
                 }
                 else
                 {
-                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 400, 350);
+                    chartObject1 = ChartObjects.Add(x1, 20 + (200 * globalCounter), 600, 350);
                 }
 
                 globalCounter++;
@@ -527,9 +552,17 @@ namespace Terry_IN_BA_Regression
                 axis21.HasMinorGridlines = false;
 
                 axis21.MinimumScale = model.observationNumber.Column(0).Min();
-                axis1.MinimumScale = model.DFFITS.Column(0).Min();
-                axis1.CrossesAt = model.DFFITS.Column(0).Min();
+
+                double gap = Math.Abs(model.DFFITS.Column(0).Max()) - Math.Abs(model.DFFITS.Column(0).Min()) / 2;
+                
+                axis1.MajorUnit = gap/4;
+                axis1.MinorUnit = gap/8;
+                axis1.MinimumScale = Math.Floor(-gap);
+                axis1.MaximumScale = Math.Ceiling(gap);
+
+                axis1.CrossesAt = Math.Floor(-gap);
                 axis21.CrossesAt = model.observationNumber.Column(0).Min();
+
             }
 
 
