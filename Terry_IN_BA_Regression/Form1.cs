@@ -446,7 +446,14 @@ namespace Terry_IN_BA_Regression
 
         private void checkBox20_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (checkBox20.Checked)
+            {
+                checkBox5.Checked = true;
+            }
+            else
+            {
+                checkBox5.Checked = false;
+            }
         }
 
         private void groupBox8_Enter(object sender, EventArgs e)
@@ -563,6 +570,79 @@ namespace Terry_IN_BA_Regression
         private void checkBox21_CheckedChanged(object sender, EventArgs e)
         {
             xVariableStates[9] = checkBox21.Checked;
+        }
+
+        private void checkBox42_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox42.Checked == true)
+            {
+                checkBox6.Checked = true;
+                checkBox7.Checked = true;
+                checkBox8.Checked = true;
+                checkBox9.Checked = true;
+                checkBox10.Checked = true;
+                checkBox11.Checked = true;
+                checkBox12.Checked = true;
+                checkBox13.Checked = true;
+                checkBox14.Checked = true;
+                checkBox15.Checked = true;
+                checkBox16.Checked = true;
+                checkBox17.Checked = true;
+                checkBox18.Checked = true;
+                checkBox19.Checked = true;
+            } else
+            {
+                checkBox6.Checked = false;
+                checkBox7.Checked = false;
+                checkBox8.Checked = false;
+                checkBox9.Checked = false;
+                checkBox10.Checked = false;
+                checkBox11.Checked = false;
+                checkBox12.Checked = false;
+                checkBox13.Checked = false;
+                checkBox14.Checked = false;
+                checkBox15.Checked = false;
+                checkBox16.Checked = false;
+                checkBox17.Checked = false;
+                checkBox18.Checked = false;
+                checkBox19.Checked = false;
+
+            }
+            setInputStates();
+        }
+
+        private void checkBox43_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox43.Checked == true)
+            {
+                checkBox20.Checked = true;
+                checkBox22.Checked = true;
+                checkBox23.Checked = true;
+                checkBox24.Checked = true;
+                checkBox25.Checked = true;
+                checkBox26.Checked = true;
+                checkBox27.Checked = true;
+                checkBox28.Checked = true;
+                checkBox29.Checked = true;
+                checkBox30.Checked = true;
+                checkBox31.Checked = true;
+                checkBox32.Checked = true;
+            } else
+            {
+                checkBox20.Checked = false;
+                checkBox22.Checked = false;
+                checkBox23.Checked = false;
+                checkBox24.Checked = false;
+                checkBox25.Checked = false;
+                checkBox26.Checked = false;
+                checkBox27.Checked = false;
+                checkBox28.Checked = false;
+                checkBox29.Checked = false;
+                checkBox30.Checked = false;
+                checkBox31.Checked = false;
+                checkBox32.Checked = false;
+            }
+            setInputStates();
         }
     }
 }
