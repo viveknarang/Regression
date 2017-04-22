@@ -25,14 +25,198 @@ namespace Terry_IN_BA_Regression
         public Boolean textBox1Selected = false;
         public Boolean textBox2Selected = false;
 
-        private BackgroundWorker backgroundWorker1;
-
+        string[] xVariables;
+        bool[] xVariableStates;
 
         public Form1()
         {
             InitializeComponent();
+
+            checkBox41.Enabled = false;
+            checkBox40.Enabled = false;
+            checkBox39.Enabled = false;
+            checkBox38.Enabled = false;
+            checkBox37.Enabled = false;
+            checkBox36.Enabled = false;
+            checkBox35.Enabled = false;
+            checkBox34.Enabled = false;
+            checkBox33.Enabled = false;
+            checkBox21.Enabled = false;
+
+            checkBox41.Visible = false;
+            checkBox40.Visible = false;
+            checkBox39.Visible = false;
+            checkBox38.Visible = false;
+            checkBox37.Visible = false;
+            checkBox36.Visible = false;
+            checkBox35.Visible = false;
+            checkBox34.Visible = false;
+            checkBox33.Visible = false;
+            checkBox21.Visible = false;
+
             textBox3.Enabled = Util.confidenceLevelInBasicChecked;
             textBox3.Text = Util.confidenceLevelDefaultValue;
+        }
+
+        private void initializeCheckboxesInVariablesSelect(string[] xVariables)
+        {
+            this.xVariables = xVariables;
+            xVariableStates = new bool[xVariables.Length];
+
+            for (int i = 1; i <= xVariables.Length; i++)
+            {
+                if (i == 1)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox41.Text = xVariables[i - 1];
+                    } else
+                    {
+                        checkBox41.Text = xVariables[i - 1].Substring(0,9) + "...";
+                    }
+                    checkBox41.Enabled = true;
+                    checkBox41.Checked = true;
+                    checkBox41.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 2)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox40.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox40.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox40.Enabled = true;
+                    checkBox40.Checked = true;
+                    checkBox40.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 3)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox39.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox39.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox39.Enabled = true;
+                    checkBox39.Checked = true;
+                    checkBox39.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 4)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox38.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox38.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox38.Enabled = true;
+                    checkBox38.Checked = true;
+                    checkBox38.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 5)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox37.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox37.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox37.Enabled = true;
+                    checkBox37.Checked = true;
+                    checkBox37.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 6)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox36.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox36.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox36.Enabled = true;
+                    checkBox36.Checked = true;
+                    checkBox36.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 7)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox35.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox35.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox35.Enabled = true;
+                    checkBox35.Checked = true;
+                    checkBox35.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 8)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox34.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox34.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox34.Enabled = true;
+                    checkBox34.Checked = true;
+                    checkBox34.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 9)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox33.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox33.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox33.Enabled = true;
+                    checkBox33.Checked = true;
+                    checkBox33.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+                if (i == 10)
+                {
+                    if (xVariables[i - 1].Length <= 10)
+                    {
+                        checkBox21.Text = xVariables[i - 1];
+                    }
+                    else
+                    {
+                        checkBox21.Text = xVariables[i - 1].Substring(0, 9) + "...";
+                    }
+                    checkBox21.Enabled = true;
+                    checkBox21.Checked = true;
+                    checkBox21.Visible = true;
+                    xVariableStates[i - 1] = true;
+                }
+
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -78,6 +262,7 @@ namespace Terry_IN_BA_Regression
                 output.arrayX = input.array;
                 output.xR = input.totalItems / input.columns.Count;
                 output.xC = input.columns.Count;
+                variableSelector();
             }
         }
 
@@ -135,7 +320,7 @@ namespace Terry_IN_BA_Regression
         {
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void variableSelector()
         {
             if (output.arrayX == null || output.arrayX.Length == 0)
             {
@@ -156,13 +341,11 @@ namespace Terry_IN_BA_Regression
             {
                 for (int i = 0; i < output.xC; i++)
                 {
-                    xVariable[i] = "X" + (i+1);
+                    xVariable[i] = "X" + (i + 1);
                 }
             }
 
-            Form2 form = new Form2(xVariable);
-            form.Visible = true;
-            form.TopMost = true;
+            initializeCheckboxesInVariablesSelect(xVariable);
         }
 
         public void InjectXVariableStates(LinkedList<bool> xVariableStates)
@@ -320,6 +503,66 @@ namespace Terry_IN_BA_Regression
         private void button16_Click(object sender, EventArgs e)
         {
             onCancelClick();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            onOkClick();
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            onCancelClick();
+        }
+
+        private void checkBox41_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[0] = checkBox41.Checked;
+        }
+
+        private void checkBox40_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[1] = checkBox40.Checked;
+        }
+
+        private void checkBox39_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[2] = checkBox39.Checked;
+        }
+
+        private void checkBox38_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[3] = checkBox38.Checked;
+        }
+
+        private void checkBox37_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[4] = checkBox37.Checked;
+        }
+
+        private void checkBox36_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[5] = checkBox36.Checked;
+        }
+
+        private void checkBox35_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[6] = checkBox35.Checked;
+        }
+
+        private void checkBox34_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[7] = checkBox34.Checked;
+        }
+
+        private void checkBox33_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[8] = checkBox33.Checked;
+        }
+
+        private void checkBox21_CheckedChanged(object sender, EventArgs e)
+        {
+            xVariableStates[9] = checkBox21.Checked;
         }
     }
 }
