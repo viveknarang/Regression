@@ -291,5 +291,35 @@ namespace Terry_IN_BA_Regression
                 checkBox20.Checked = false;
             }
         }
+
+        private void label21_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label20_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox23_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            onOkClick();
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            onCancelClick();
+        }
     }
 }
