@@ -81,7 +81,7 @@ namespace Terry_IN_BA_Regression
                         string address = range.Areas[areaIndex].Cells[cellIndex].Address;
                         string value = "" + range.Areas[areaIndex].Cells[cellIndex].Value;
                         string[] words = address.Split(delimiterChars);
-                        cellnames += "[" + words[1] + words[2] + "," + value + "] ";
+                        cellnames += words[1] + words[2] + " ";
                         array[r, c] = value;
                         c++;
                         if (c == columns.Count)
@@ -95,7 +95,7 @@ namespace Terry_IN_BA_Regression
                 selectedRangeText = System.Text.RegularExpressions.Regex.Split(cellnames," ");
             }
             input.array = array;
-            input.cellnames = selectedRangeText[0] + " : " + selectedRangeText[selectedRangeText.Length-2];
+            input.cellnames = "[" + selectedRangeText[0] + " : " + selectedRangeText[selectedRangeText.Length-2] + "]";
             input.columns = columns;
             input.totalItems = totalItems;
 
