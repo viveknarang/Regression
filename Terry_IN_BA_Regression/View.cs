@@ -65,8 +65,8 @@ namespace Terry_IN_BA_Regression
                     chart.ChartTitle.Text = "Scatterplot of " + model.yVariable + " by " + model.xVariables.ElementAt(i);
                     chart.HasLegend = false;
                     seriesCollectionX = (SeriesCollection)chart.SeriesCollection();
-                    seriesX = seriesCollectionX.NewSeries();
-                    seriesX.Values = model.arrayYConverted.ToArray();
+                    seriesX = seriesCollectionX.NewSeries();                                                          
+                    seriesX.Values = model.arrayYConverted.ToArray();                    
                     seriesX.XValues = model.arrayXConverted.Column(i + 1).ToArray();
                     seriesX.Name = model.xVariables.ElementAt(i);
                     seriesX.MarkerStyle = XlMarkerStyle.xlMarkerStyleCircle;
@@ -81,10 +81,15 @@ namespace Terry_IN_BA_Regression
                     axis2.AxisTitle.Text = model.xVariables.ElementAt(i);
                     axis2.HasMajorGridlines = false;
                     axis2.HasMinorGridlines = false;
-                    axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
-                    axis.MinimumScale = model.arrayYConverted.Column(0).Min();
-                    axis.CrossesAt = model.arrayYConverted.Column(0).Min();
-                    axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+
+                    double xValue = Math.Round(Math.Floor(model.arrayXConverted.Column(i + 1).Min()),2);                 
+
+                    double yValue = Math.Round(Math.Floor(model.arrayYConverted.Column(0).Min()),2);                    
+
+                    axis2.MinimumScale = xValue;
+                    axis.MinimumScale = yValue;
+                    axis.CrossesAt = yValue;
+                    axis2.CrossesAt = xValue;
                 }
             }
 
@@ -126,10 +131,22 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Predicted Value of " + model.yVariable; ;
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
-                axis21.MinimumScale = model.yCap.Column(0).Min();
-                axis1.MinimumScale = model.residuals.Column(0).Min();
-                axis1.CrossesAt = model.residuals.Column(0).Min();
-                axis21.CrossesAt = model.yCap.Column(0).Min();
+
+                //axis21.MinimumScale = model.yCap.Column(0).Min();
+                //axis1.MinimumScale = model.residuals.Column(0).Min();
+                //axis1.CrossesAt = model.residuals.Column(0).Min();
+                //axis21.CrossesAt = model.yCap.Column(0).Min();
+
+
+                double xValue = Math.Round(Math.Floor(model.yCap.Column(0).Min()),2);               
+
+                double yValue = Math.Round(Math.Floor(model.residuals.Column(0).Min()),2);               
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
+
             }
 
             if (model.isStandardizedResidualsByPredictedCheckedInPAndGSection)
@@ -169,10 +186,21 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Predicted Value of " + model.yVariable; ;
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
-                axis21.MinimumScale = model.yCap.Column(0).Min();
-                axis1.MinimumScale = model.standardizedResiduals.Column(0).Min();
-                axis1.CrossesAt = model.standardizedResiduals.Column(0).Min();
-                axis21.CrossesAt = model.yCap.Column(0).Min();
+
+                //axis21.MinimumScale = model.yCap.Column(0).Min();
+                //axis1.MinimumScale = model.standardizedResiduals.Column(0).Min();
+                //axis1.CrossesAt = model.standardizedResiduals.Column(0).Min();
+                //axis21.CrossesAt = model.yCap.Column(0).Min();
+
+
+                double xValue = Math.Round(Math.Floor(model.yCap.Column(0).Min()), 2);            
+
+                double yValue = Math.Round(Math.Floor(model.standardizedResiduals.Column(0).Min()), 2);
+               
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
             }
 
             if (model.isResidualsByXVariablesCheckedInPAndGSection)
@@ -215,10 +243,21 @@ namespace Terry_IN_BA_Regression
                     axis2.AxisTitle.Text = model.xVariables.ElementAt(i);
                     axis2.HasMajorGridlines = false;
                     axis2.HasMinorGridlines = false;
-                    axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
-                    axis.MinimumScale = model.residuals.Column(0).Min();
-                    axis.CrossesAt = model.residuals.Column(0).Min();
-                    axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+
+                    //axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
+                    //axis.MinimumScale = model.residuals.Column(0).Min();
+                    //axis.CrossesAt = model.residuals.Column(0).Min();
+                    //axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+
+                    double xValue = Math.Round(Math.Floor(model.arrayXConverted.Column(i + 1).Min()),2); 
+
+                    double yValue = Math.Round(Math.Floor(model.residuals.Column(0).Min()),2);
+ 
+                    axis2.MinimumScale = xValue;
+                    axis.MinimumScale = yValue;
+                    axis.CrossesAt = yValue;
+                    axis2.CrossesAt = xValue;
+
                 }
             }
 
@@ -262,10 +301,21 @@ namespace Terry_IN_BA_Regression
                     axis2.AxisTitle.Text = model.xVariables.ElementAt(i);
                     axis2.HasMajorGridlines = false;
                     axis2.HasMinorGridlines = false;
-                    axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
-                    axis.MinimumScale = model.standardizedResiduals.Column(0).Min();
-                    axis.CrossesAt = model.standardizedResiduals.Column(0).Min();
-                    axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+
+                    //axis2.MinimumScale = model.arrayXConverted.Column(i + 1).Min();
+                    //axis.MinimumScale = model.standardizedResiduals.Column(0).Min();
+                    //axis.CrossesAt = model.standardizedResiduals.Column(0).Min();
+                    //axis2.CrossesAt = model.arrayXConverted.Column(i + 1).Min();
+
+                    double xValue = Math.Round(Math.Floor(model.arrayXConverted.Column(i + 1).Min()),2);
+
+                    double yValue = Math.Round(Math.Floor(model.standardizedResiduals.Column(0).Min()),2);
+
+                    axis2.MinimumScale = xValue;
+                    axis.MinimumScale = yValue;
+                    axis.CrossesAt = yValue;
+                    axis2.CrossesAt = xValue;
+
                 }
             }
 
@@ -307,10 +357,20 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Residuals";
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
-                axis21.MinimumScale = model.residuals.Column(0).Min();
-                axis1.MinimumScale = model.standardNormalQuantileForResiduals.Column(0).Min();
-                axis1.CrossesAt = model.standardNormalQuantileForResiduals.Column(0).Min();
-                axis21.CrossesAt = model.residuals.Column(0).Min();
+
+                //axis21.MinimumScale = model.residuals.Column(0).Min();
+                //axis1.MinimumScale = model.standardNormalQuantileForResiduals.Column(0).Min();
+                //axis1.CrossesAt = model.standardNormalQuantileForResiduals.Column(0).Min();
+                //axis21.CrossesAt = model.residuals.Column(0).Min();
+
+                double xValue = Math.Round(Math.Floor(model.residuals.Column(0).Min()),2);
+
+                double yValue = Math.Round(Math.Floor(model.standardNormalQuantileForResiduals.Column(0).Min()),2);
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
 
             }
 
@@ -352,10 +412,20 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "Standardized Residuals";
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
-                axis21.MinimumScale = model.standardizedResiduals.Column(0).Min();
-                axis1.MinimumScale = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
-                axis1.CrossesAt = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
-                axis21.CrossesAt = model.standardizedResiduals.Column(0).Min();
+
+                //axis21.MinimumScale = model.standardizedResiduals.Column(0).Min();
+                //axis1.MinimumScale = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                //axis1.CrossesAt = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                //axis21.CrossesAt = model.standardizedResiduals.Column(0).Min();
+
+                double xValue = Math.Round(Math.Floor(model.standardizedResiduals.Column(0).Min()),2);
+
+                double yValue = Math.Round(Math.Floor(model.standardNormalQuantileForStandardizedResiduals.Column(0).Min()),2);
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
 
             }
 
@@ -397,11 +467,20 @@ namespace Terry_IN_BA_Regression
                 axis21.AxisTitle.Text = "" + model.yVariable;
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
-                axis21.MinimumScale = model.arrayYConverted.Column(0).Min();
-                axis1.MinimumScale = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
-                axis1.CrossesAt = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
-                axis21.CrossesAt = model.arrayYConverted.Column(0).Min();
 
+                //axis21.MinimumScale = model.arrayYConverted.Column(0).Min();
+                //axis1.MinimumScale = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                //axis1.CrossesAt = model.standardNormalQuantileForStandardizedResiduals.Column(0).Min();
+                //axis21.CrossesAt = model.arrayYConverted.Column(0).Min();
+
+                double xValue = Math.Round(Math.Floor(model.arrayYConverted.Column(0).Min()),2);
+
+                double yValue = Math.Round(Math.Floor(model.standardNormalQuantileForStandardizedResiduals.Column(0).Min()),2);
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
             }
 
             if (model.isLeverageCheckedInPAndGSection)
@@ -445,17 +524,31 @@ namespace Terry_IN_BA_Regression
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
 
-                axis21.MinimumScale = model.observationNumber.Column(0).Min();
-                double gap = Math.Abs(model.Leverage.Column(0).Max()) - Math.Abs(model.Leverage.Column(0).Min());
+                //axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                //double gap = Math.Abs(model.Leverage.Column(0).Max()) - Math.Abs(model.Leverage.Column(0).Min());
 
-                axis1.MajorUnit = gap / 4;
-                axis1.MinorUnit = gap / 8;
+                //axis1.MajorUnit = gap / 4;
+                //axis1.MinorUnit = gap / 8;
 
-                axis1.MaximumScale = model.Leverage.Column(0).Max();
-                axis1.MinimumScale = model.Leverage.Column(0).Min();
+                //axis1.MaximumScale = model.Leverage.Column(0).Max();
+                //axis1.MinimumScale = model.Leverage.Column(0).Min();
+                //axis1.CrossesAt = model.Leverage.Column(0).Min();
+                //axis21.CrossesAt = model.observationNumber.Column(0).Min();
 
-                axis1.CrossesAt = model.Leverage.Column(0).Min();
-                axis21.CrossesAt = model.observationNumber.Column(0).Min();
+                double xValue = Math.Round(Math.Floor(model.observationNumber.Column(0).Min()),2);
+
+                double yValue = Math.Round(Math.Floor(model.Leverage.Column(0).Min()),2);
+
+                while ((yValue + "").Substring((yValue + "").Length - 1, 1) != "0")
+                {
+                    yValue--;
+                }
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
+
             }
 
             if (model.isCooksDCheckedInPAndGSection)
@@ -500,18 +593,27 @@ namespace Terry_IN_BA_Regression
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
 
-                axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                //axis21.MinimumScale = model.observationNumber.Column(0).Min();
 
-                double gap = Math.Abs(model.CooksD.Column(0).Max()) - Math.Abs(model.CooksD.Column(0).Min());
+                //double gap = Math.Abs(model.CooksD.Column(0).Max()) - Math.Abs(model.CooksD.Column(0).Min());
 
-                axis1.MajorUnit = gap/4;
-                axis1.MinorUnit = gap/8;
+                //axis1.MajorUnit = gap/4;
+                //axis1.MinorUnit = gap/8;
 
-                axis1.MaximumScale = model.CooksD.Column(0).Max();
-                axis1.MinimumScale = model.CooksD.Column(0).Min();
+                //axis1.MaximumScale = model.CooksD.Column(0).Max();
+                //axis1.MinimumScale = model.CooksD.Column(0).Min();
 
-                axis1.CrossesAt = model.CooksD.Column(0).Min();
-                axis21.CrossesAt = model.observationNumber.Column(0).Min();
+                //axis1.CrossesAt = model.CooksD.Column(0).Min();
+                //axis21.CrossesAt = model.observationNumber.Column(0).Min();
+
+                double xValue = Math.Round(Math.Floor(model.observationNumber.Column(0).Min()),2);
+
+                double yValue = Math.Round(Math.Floor(model.CooksD.Column(0).Min()),2);
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
             }
 
             if (model.isDFFITSCheckedInPAndGSection)
@@ -556,18 +658,26 @@ namespace Terry_IN_BA_Regression
                 axis21.HasMajorGridlines = false;
                 axis21.HasMinorGridlines = false;
 
-                axis21.MinimumScale = model.observationNumber.Column(0).Min();
+                //axis21.MinimumScale = model.observationNumber.Column(0).Min();
 
-                double gap = Math.Abs(model.DFFITS.Column(0).Max()) - Math.Abs(model.DFFITS.Column(0).Min()) / 2;
-                
-                axis1.MajorUnit = gap/4;
-                axis1.MinorUnit = gap/8;
-                axis1.MinimumScale = Math.Floor(-gap);
-                axis1.MaximumScale = Math.Ceiling(gap);
+                //double gap = Math.Abs(model.DFFITS.Column(0).Max()) - Math.Abs(model.DFFITS.Column(0).Min()) / 2;
 
-                axis1.CrossesAt = Math.Floor(-gap);
-                axis21.CrossesAt = model.observationNumber.Column(0).Min();
+                //axis1.MajorUnit = gap/4;
+                //axis1.MinorUnit = gap/8;
+                //axis1.MinimumScale = Math.Floor(-gap);
+                //axis1.MaximumScale = Math.Ceiling(gap);
 
+                //axis1.CrossesAt = Math.Floor(-gap);
+                //axis21.CrossesAt = model.observationNumber.Column(0).Min();
+
+                double xValue = Math.Round(Math.Floor(model.observationNumber.Column(0).Min()),2);
+
+                double yValue = Math.Round(Math.Floor(model.DFFITS.Column(0).Min()),2);
+
+                axis21.MinimumScale = xValue;
+                axis1.MinimumScale = yValue;
+                axis1.CrossesAt = yValue;
+                axis21.CrossesAt = xValue;
             }
 
 

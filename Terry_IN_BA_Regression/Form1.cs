@@ -254,7 +254,7 @@ namespace Terry_IN_BA_Regression
                 textBox1.Text = input.cellnames;
                 output.arrayY = input.array;
                 output.yR = input.totalItems / input.columns.Count;
-                output.yC = input.columns.Count;
+                output.yC = input.columns.Count;        
             }
             else if (textBox2Selected == true) 
             {
