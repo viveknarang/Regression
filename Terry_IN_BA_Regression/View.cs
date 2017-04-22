@@ -19,7 +19,11 @@ namespace Terry_IN_BA_Regression
         {
             this.model = model;
             this.input = input;
-            this.drawPlots();
+
+            if (model.isCooksDCheckedInPAndGSection || model.isDFFITSCheckedInPAndGSection || model.isLeverageCheckedInPAndGSection || model.isOtherCheckedInPAndGSection || model.isResidualsByPredictedCheckedInPAndGSection || model.isResidualsByXVariablesCheckedInPAndGSection || model.isResidualsCheckedInPAndGSection || model.isScatterPlotCheckedInPAndGSection || model.isStandardizedResidualsByPredictedCheckedInPAndGSection || model.isStandardizedResidualsByXVariablesCheckedInPAndGSection || model.isStandardizedResidualsCheckedInPAndGSection || model.isYVariableCheckedInPAndGSection)
+            {
+                this.drawPlots();
+            }
         }
 
         public void drawPlots()
@@ -29,7 +33,8 @@ namespace Terry_IN_BA_Regression
             SeriesCollection seriesCollectionX = null;
             Series seriesX = null;
 
-            Microsoft.Office.Interop.Excel.ChartObjects ChartObjects = (Microsoft.Office.Interop.Excel.ChartObjects)workbook.Sheets.Add().ChartObjects();
+            Microsoft.Office.Interop.Excel.Worksheet sheet = workbook.Sheets.Add();
+            Microsoft.Office.Interop.Excel.ChartObjects ChartObjects = (Microsoft.Office.Interop.Excel.ChartObjects)sheet.ChartObjects();
 
             int i = 0;
 

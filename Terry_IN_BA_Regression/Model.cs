@@ -72,7 +72,6 @@ namespace Terry_IN_BA_Regression
         public Matrix<double> cumulativeProportionForDependentVariable;
         public Matrix<double> standardNormalQuantileForDependentVariable;
         public Matrix<double> observationNumber;
-
         public int sampleSize; 
         public double SDy;
         public double dfe;

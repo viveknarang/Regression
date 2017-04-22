@@ -224,6 +224,7 @@
             this.checkBox5.TabIndex = 7;
             this.checkBox5.Text = "Scatterplots";
             this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // textBox3
             // 
@@ -942,9 +943,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(1, 511);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(88, 20);
+            this.label13.Size = new System.Drawing.Size(85, 20);
             this.label13.TabIndex = 10;
-            this.label13.Text = "Version 1.0.5";
+            this.label13.Text = "Version 1.1.0";
             this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // pictureBox1

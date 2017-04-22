@@ -193,6 +193,7 @@ namespace Terry_IN_BA_Regression
             output.isLabelsCheckedInBasic = checkBox1.Checked;
             output.noIntercept = checkBox2.Checked;
             output.confidenceLevel = textBox3.Text;
+            output.isScatterPlotCheckedInPAndGSection = checkBox5.Checked;
             output.isScatterPlotCheckedInPAndGSection = checkBox20.Checked;
             output.isResidualsByPredictedCheckedInPAndGSection = checkBox22.Checked;
             output.isStandardizedResidualsByPredictedCheckedInPAndGSection = checkBox24.Checked;
@@ -278,6 +279,17 @@ namespace Terry_IN_BA_Regression
         private void label13_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox5.Checked)
+            {
+                checkBox20.Checked = true;
+            } else
+            {
+                checkBox20.Checked = false;
+            }
         }
     }
 }
