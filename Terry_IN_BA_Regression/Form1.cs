@@ -357,6 +357,11 @@ namespace Terry_IN_BA_Regression
         {
         }
 
+        private void initialize()
+        {
+            output.xVariableStates = new LinkedList<bool>(xVariableStates);
+        }
+
         private void setInputStates()
         {
             output.noIntercept = checkBox2.Checked;
@@ -394,6 +399,7 @@ namespace Terry_IN_BA_Regression
         public void onOkClick()
         {
             setInputStates();
+            initialize();
 
             Validator validator = new Validator(input, output);
             if (validator.validate())

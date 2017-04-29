@@ -55,6 +55,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.checkBox42 = new System.Windows.Forms.CheckBox();
             this.checkBox19 = new System.Windows.Forms.CheckBox();
             this.checkBox18 = new System.Windows.Forms.CheckBox();
             this.checkBox17 = new System.Windows.Forms.CheckBox();
@@ -84,6 +85,7 @@
             this.button10 = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.checkBox43 = new System.Windows.Forms.CheckBox();
             this.checkBox20 = new System.Windows.Forms.CheckBox();
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
@@ -132,8 +134,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.eventLog1 = new System.Diagnostics.EventLog();
-            this.checkBox42 = new System.Windows.Forms.CheckBox();
-            this.checkBox43 = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -466,6 +466,19 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Additional Output Values";
             // 
+            // checkBox42
+            // 
+            this.checkBox42.AutoSize = true;
+            this.checkBox42.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox42.ForeColor = System.Drawing.Color.Red;
+            this.checkBox42.Location = new System.Drawing.Point(329, 250);
+            this.checkBox42.Name = "checkBox42";
+            this.checkBox42.Size = new System.Drawing.Size(161, 24);
+            this.checkBox42.TabIndex = 14;
+            this.checkBox42.Text = "Select All Options";
+            this.checkBox42.UseVisualStyleBackColor = true;
+            this.checkBox42.CheckedChanged += new System.EventHandler(this.checkBox42_CheckedChanged);
+            // 
             // checkBox19
             // 
             this.checkBox19.AutoSize = true;
@@ -759,6 +772,19 @@
             this.groupBox9.TabIndex = 9;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "General";
+            // 
+            // checkBox43
+            // 
+            this.checkBox43.AutoSize = true;
+            this.checkBox43.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox43.ForeColor = System.Drawing.Color.Red;
+            this.checkBox43.Location = new System.Drawing.Point(258, 36);
+            this.checkBox43.Name = "checkBox43";
+            this.checkBox43.Size = new System.Drawing.Size(161, 24);
+            this.checkBox43.TabIndex = 1;
+            this.checkBox43.Text = "Select All Options";
+            this.checkBox43.UseVisualStyleBackColor = true;
+            this.checkBox43.CheckedChanged += new System.EventHandler(this.checkBox43_CheckedChanged);
             // 
             // checkBox20
             // 
@@ -1272,32 +1298,6 @@
             // eventLog1
             // 
             this.eventLog1.SynchronizingObject = this;
-            // 
-            // checkBox42
-            // 
-            this.checkBox42.AutoSize = true;
-            this.checkBox42.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox42.ForeColor = System.Drawing.Color.Red;
-            this.checkBox42.Location = new System.Drawing.Point(329, 250);
-            this.checkBox42.Name = "checkBox42";
-            this.checkBox42.Size = new System.Drawing.Size(161, 24);
-            this.checkBox42.TabIndex = 14;
-            this.checkBox42.Text = "Select All Options";
-            this.checkBox42.UseVisualStyleBackColor = true;
-            this.checkBox42.CheckedChanged += new System.EventHandler(this.checkBox42_CheckedChanged);
-            // 
-            // checkBox43
-            // 
-            this.checkBox43.AutoSize = true;
-            this.checkBox43.Font = new System.Drawing.Font("Microsoft YaHei UI Light", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox43.ForeColor = System.Drawing.Color.Red;
-            this.checkBox43.Location = new System.Drawing.Point(258, 36);
-            this.checkBox43.Name = "checkBox43";
-            this.checkBox43.Size = new System.Drawing.Size(161, 24);
-            this.checkBox43.TabIndex = 1;
-            this.checkBox43.Text = "Select All Options";
-            this.checkBox43.UseVisualStyleBackColor = true;
-            this.checkBox43.CheckedChanged += new System.EventHandler(this.checkBox43_CheckedChanged);
             // 
             // Form1
             // 
